@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="app_name">ユーザー登録</string>
+    <string name="tv_attention">*は必須項目です</string>
+    <string name="tv_name">*名前（ニックネーム可）</string>
+    <string name="tv_sex">性別</string>
+    <string name="rb_male">男性</string>
+    <string name="rb_female">女性</string>
+    <string name="tv_height">身長</string>
+    <string name="tv_cm">cm</string>
+    <string name="tv_weight">体重</string>
+    <string name="tv_kg">kg</string>
+    <string name="tv_age">年齢</string>
+    <string-array name="sp_agelist">
+        <item>10代</item>
+        <item>20代</item>
+        <item>30代</item>
+        <item>40代</item>
+        <item>50代</item>
+        <item>60代</item>
+        <item>70代以上</item>
+    </string-array>
+    <string name="tv_attention2">あとで設定から変更ができます</string>
+    <string name="bt_entry">登録</string>
+</resources>
