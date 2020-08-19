@@ -6,6 +6,7 @@
     <string name="tv_sex">性別</string>
     <string name="rb_male">男性</string>
     <string name="rb_female">女性</string>
+    <string name="rb_etc">その他</string>
     <string name="tv_height">身長</string>
     <string name="tv_cm">cm</string>
     <string name="tv_weight">体重</string>
