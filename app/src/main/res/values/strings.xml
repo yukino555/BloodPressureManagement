@@ -6,6 +6,7 @@
     <string name="tv_sex">性別</string>
     <string name="rb_male">男性</string>
     <string name="rb_female">女性</string>
+    <string name="rb_etc">その他</string>
     <string name="tv_height">身長</string>
     <string name="tv_cm">cm</string>
     <string name="tv_weight">体重</string>
@@ -17,6 +18,7 @@
         <item>30代</item>
         <item>40代</item>
         <item>50代</item>
+        <item>60代</item>
         <item>60代</item>
         <item>70代以上</item>
     </string-array>
