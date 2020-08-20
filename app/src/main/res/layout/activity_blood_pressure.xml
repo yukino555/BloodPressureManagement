@@ -154,7 +154,7 @@
         android:layout_height="30dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="8dp"
-        android:background="#80FFEB3B"
+        android:background="#80FFEB3f"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvSex">

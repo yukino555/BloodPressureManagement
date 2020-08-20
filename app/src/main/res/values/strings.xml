@@ -20,6 +20,7 @@
         <item>50代</item>
         <item>60代</item>
         <item>70代以上</item>
+        <item>70代以上</item>
     </string-array>
     <string name="tv_attention2">あとで設定から変更ができます</string>
     <string name="bt_entry">登録</string>
