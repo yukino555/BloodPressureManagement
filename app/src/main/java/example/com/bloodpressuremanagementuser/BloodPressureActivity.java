@@ -7,17 +7,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
-public class BloodPressureActivity extends AppCompatActivity
-        implements View.OnClickListener{
-
+public class BloodPressureActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i("BloodPressureManegementUser","Main onCreate() called.");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blood_pressure);
-        findViewById(R.id.btEntry).setOnClickListener(this);
+    // 登録ボタンを押したら画面遷移用の記述
+//        findViewById(R.id.btEntry).setOnClickListener(this);
+        
     }
     @Override
     public void onStart(){
@@ -49,9 +50,14 @@ public class BloodPressureActivity extends AppCompatActivity
         Log.i("BloodPressureManegementUser","Main onDestroy() called.");
         super.onDestroy();
     }
-    public void onClick(View view){
-        //ここに遷移するための処理を追加する
-        Intent intent = new Intent(this, UserFinishActivity.class);
-        startActivity(intent);
-    }
+    /*
+    登録ボタンを押したら画面遷移する処理  public class Blood~manegement に以下をインプリメントする
+    implements View.OnClickListener{
+
+     */
+//    public void onClick(View view){
+//        //ここに遷移するための処理を追加する
+//        Intent intent = new Intent(this, UserFinishActivity.class);
+//        startActivity(intent);
+//    }
 }
