@@ -3,6 +3,7 @@ package example.com.bloodpressuremanagementuser;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -27,6 +28,8 @@ public class EntryUserInformationDialogFragment extends DialogFragment {
             switch (which){
                 case DialogInterface.BUTTON_POSITIVE:
 //                    msg = getString(R.string.dialog_ok_toast);
+                    Intent intent = new Intent(getContext(), UserFinishActivity.class);
+                    startActivity(intent);
                     break;
                 case DialogInterface.BUTTON_NEGATIVE:
 //                    msg = getString(R.string.dialog_ng_toast);
