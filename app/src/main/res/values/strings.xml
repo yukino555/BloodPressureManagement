@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
-    <string name="app_name">ユーザー登録</string>
+    <string name="app_name">血圧マネジャー</string>
     <string name="tv_attention">*は必須項目です</string>
     <string name="tv_name">*名前（ニックネーム可）</string>
     <string name="tv_sex">性別</string>
