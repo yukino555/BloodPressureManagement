@@ -25,6 +25,7 @@
     <string name="tv_attention2">あとで設定から変更ができます</string>
     <string name="bt_entry">登録</string>
     <string name="tv_practice">これは練習です</string>
+    <string name="tv_practice2">更に練習です</string>
     <string name="tv_userFinish">登録が完了しました</string>
     <string name="bt_next">次へ</string>
 </resources>
