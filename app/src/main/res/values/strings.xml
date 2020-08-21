@@ -34,4 +34,10 @@
     <string name="bt_next">次へ</string>
     <string name="dialog_ok_toast">確定</string>
     <string name="dialog_ng_toast">キャンセル</string>
+    <string name="tv_countingTime">測定時間</string>
+    <string name="tv_upperBloodPressure">最高血圧</string>
+    <string name="tv_lowerBloodPressure">最低血圧</string>
+    <string name="tv_mmHg">mmHg</string>
+    <string name="tv_pulse">脈拍</string>
+    <string name="tv_pulseUnit">拍/脈</string>
 </resources>
