@@ -14,7 +14,19 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blood_pressure_addition);
+        setViews();
     }
+    private void setViews(){
+        Button button = (Button)findViewById(R.id.btEntry);
+        button.setOnClickListener(onClick_button);
+    }
+    private View.OnClickListener onClick_button = new View.OnClickListener(){
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(BloodPressureAdditionActivity.this, BloodPressureAdditionActivity.class);
+            startActivity(intent);
+        }
+    };
 
      //登録ボタンがタップされた時の処理メソッド
     public void onEntryButtonClick(View view) {

@@ -23,7 +23,8 @@ public class UserFinishActivity extends AppCompatActivity implements View.OnClic
         //ここに遷移するための処理を追加する
         Intent intent = new Intent(UserFinishActivity.this, BloodPressureAdditionActivity.class);
         startActivity(intent);
-    }public void onBackButtonClick(View view) {
+    }
+    public void onBackButtonClick(View view) {
         finish();
     }
 
