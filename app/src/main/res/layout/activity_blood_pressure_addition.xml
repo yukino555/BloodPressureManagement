@@ -69,7 +69,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvUpperBloodPressure" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
+        android:id="@+id/etLowerBloodPressure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="6"
@@ -83,8 +83,8 @@
         android:layout_height="wrap_content"
         android:text="@string/tv_mmHg"
         android:textSize="20sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editTextTextPersonName3"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName3" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/etLowerBloodPressure"
+        app:layout_constraintStart_toEndOf="@+id/etLowerBloodPressure" />
 
     <TextView
         android:id="@+id/tvPulse"

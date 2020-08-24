@@ -20,11 +20,10 @@ public class BloodPressureActivity extends AppCompatActivity{
                 dialogFragment.show(getSupportFragmentManager(),"EntryUserInformationDialogFragment");
             }
         });
-
     // 登録ボタンを押したら画面遷移用の記述
 //        findViewById(R.id.btEntry).setOnClickListener(this);
-
     }
+
 
 //    @Override
 //    public void onStart(){
