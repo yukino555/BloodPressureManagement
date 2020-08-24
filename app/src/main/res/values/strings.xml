@@ -41,4 +41,5 @@
     <string name="tv_pulse">脈拍</string>
     <string name="tv_pulseUnit">拍/脈</string>
     <string name="bt_back">戻る</string>
+    <string name="bt_show">見る</string>
 </resources>
