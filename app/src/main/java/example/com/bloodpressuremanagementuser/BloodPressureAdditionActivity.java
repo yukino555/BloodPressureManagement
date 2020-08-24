@@ -23,7 +23,7 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
     private View.OnClickListener onClick_button = new View.OnClickListener(){
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(BloodPressureAdditionActivity.this, BloodPressureAdditionActivity.class);
+            Intent intent = new Intent(BloodPressureAdditionActivity.this, HomeActivity.class);
             startActivity(intent);
         }
     };
