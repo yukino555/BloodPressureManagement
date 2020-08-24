@@ -1,22 +1,12 @@
 package example.com.bloodpressuremanagementuser;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
-
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
 
 public class BloodPressureActivity extends AppCompatActivity{
-    private TextView textView;
-    private DialogFragment dialogFragment;
-    private FragmentManager fragmentManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 //        Log.i("BloodPressureManegementUser","Main onCreate() called.");
@@ -67,7 +57,7 @@ public class BloodPressureActivity extends AppCompatActivity{
 //        super.onDestroy();
 //    }
     /*
-    登録ボタンを押したら画面遷移する処理  public class Blood~manegement に以下をインプリメントする
+    登録ボタンを押したら画面遷移する処理  public class Blood~Activity に以下をインプリメントする
     implements View.OnClickListener{
      */
 //    public void onClick(View view){
