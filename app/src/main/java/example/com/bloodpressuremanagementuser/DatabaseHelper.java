@@ -25,21 +25,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     DatabaseHelper(Context context){
         super(context,DATABASE_NAME,null,DATABASE_VERSION);
     }
-    
+
     @Override
     public void onCreate(SQLiteDatabase db){
-        StringBuilder sb = new StringBuilder();
-        sb.append("CREATE TABLE bloodpressure (");
-        sb.append("_id INTEGER PRIMARY KEY,");
-        sb.append("upperBloodPressure TEXT");
-        sb.append("lowerBloodPressure TEXT");
-        sb.append(");");
-        String sql = sb.toString();
-
-        db.execSQL(sql);
+        db.execSQL(SQL_CREATE_ENTRIES);
+        Log.d("debug", "onCreate(SQLiteDatabase db)");
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
-        
+        db.execSQL(SQL_DELETE_ENTRIES);
+        onCreate(db);
+    }
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion){
+        onUpgrade(db, oldVersion, newVersion);
     }
 }
