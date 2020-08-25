@@ -16,6 +16,7 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
     TextView tv_maxBP;
     TextView tv_minBP;
     Button _btEntry;
+    Button _btShow;
     DatabaseHelper helper;
     SQLiteDatabase db;
 
@@ -28,6 +29,11 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
         tv_minBP = findViewById(R.id.tvLowerBloodPressure);
         _btEntry = findViewById(R.id.btEntry);
         _btEntry.setOnClickListener(new onClickListener());
+        _btShow  = findViewById(R.id.btShow);
+        _btShow.setOnClickListener(new onClickListener());
+
+        // DataBase
+        DatabaseHelper helper = new DatabaseHelper(BloodPressureAdditionActivity.this);
     }
 //    public void onEntryButtonClick(View view){
 //        EditText maxBP = findViewById(R.id.etUpperBloodPressure);
@@ -36,10 +42,25 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
     public class onClickListener implements View.OnClickListener{
         @Override
             public void onClick(View view){
+                SQLiteDatabase db = helper.getWritableDatabase();
+                ContentValues values = new ContentValues();
+
                 EditText maxBP = findViewById(R.id.etUpperBloodPressure);
                 EditText minBp = findViewById(R.id.etLowerBloodPressure);
+                String upperBP = maxBP.getText().toString();
+                String lowerBP = minBp.getText().toString();
+
+                values.put("maxBP", upperBP);
+                values.put("minBP", lowerBP);
+
+                db.insert("bloodpressuredb", null, values);
         }
+//            public void saveData(View view){
+//                SQLiteDatabase db = helper.getWritableDatabase();
+//                ContentValues values = new ContentValues();
+//            }
     }
+
 
 
 //    private void insertData(SQLiteDatabase db, int maxBP, int minBP){
