@@ -68,8 +68,8 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
         cursor.moveToFirst();
         StringBuilder sb = new StringBuilder();
         for(int i=0; i<cursor.getCount(); i++){
-            sb.append(cursor.getString(0));
-            sb.append(":  ");
+            sb.append(cursor.getInt(0));
+            sb.append("mmHg");
             sb.append(cursor.getInt(1));
             sb.append("mmHg");
             cursor.moveToNext();
