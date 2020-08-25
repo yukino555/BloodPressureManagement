@@ -54,7 +54,7 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
             }
         });
     }
-    public void readData(View view){
+    public void readData(){
         db = helper.getReadableDatabase();
         Cursor cursor = db.query(
                 "bloodpressuredb",
