@@ -13,82 +13,42 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class BloodPressureAdditionActivity extends AppCompatActivity {
-    private TextView textView;
-    private EditText editTextKey, editTextValue;
-    private DatabaseHelper helper;
-    private SQLiteDatabase db;
+    TextView tv_maxBP;
+    TextView tv_minBP;
+    Button _btEntry;
+    DatabaseHelper helper;
+    SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blood_pressure_addition);
 
-        editTextKey = findViewById(R.id.etUpperBloodPressure);
-        editTextValue = findViewById(R.id.etLowerBloodPressure);
-
-        textView = findViewById(R.id.text_view);
-
-        Button insertButton = findViewById(R.id.btEntry);
-        insertButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(helper == null){
-                    helper = new DatabaseHelper(getApplicationContext());
-                }
-                if(db == null){
-                    db = helper.getWritableDatabase();
-                }
-                String key = editTextKey.getText().toString();
-                String value = editTextValue.getText().toString();
-
-                insertData(db, key, Integer.valueOf(value));
-            }
-        });
-        Button readButton = findViewById(R.id.btShow);
-        readButton.setOnClickListener(new View.OnClickListener(){
-            @Override
+        tv_maxBP = findViewById(R.id.tvUpperBloodPressure);
+        tv_minBP = findViewById(R.id.tvLowerBloodPressure);
+        _btEntry = findViewById(R.id.btEntry);
+        _btEntry.setOnClickListener(new onClickListener());
+    }
+//    public void onEntryButtonClick(View view){
+//        EditText maxBP = findViewById(R.id.etUpperBloodPressure);
+//        EditText minBp = findViewById(R.id.etLowerBloodPressure);
+//    }
+    public class onClickListener implements View.OnClickListener{
+        @Override
             public void onClick(View view){
-                readData();
-            }
-        });
-    }
-    private void readData(){
-        if(helper == null){
-            helper = new DatabaseHelper(getApplicationContext());
+                EditText maxBP = findViewById(R.id.etUpperBloodPressure);
+                EditText minBp = findViewById(R.id.etLowerBloodPressure);
         }
-        if(db == null){
-            db = helper.getReadableDatabase();
-        }
-        Log.d("debug", "**********Cursor");
-
-        Cursor cursor = db.query(
-                "bloodpressuredb",
-                new String[] {"upperBloodPressure", "lowerBloodPressure"},
-                null,
-        );
-        cursor.moveToFirst();
-
-        StringBuilder sb = new StringBuilder();
-
-        for(int i =0; i< cursor.getCount(); i++){
-            sb.append(cursor.getString(0));
-            sb.append(": ");
-            sb.append(cursor.getInt(1));
-            sb.append("\n");
-            cursor.moveToNext();
-        }
-        cursor.close();
-
-        Log.d("debug", "**********"+sb.toString());
-        textView.setText(sb.toString());
     }
-    private void insertData(SQLiteDatabase db, int upperBP, int lowerBP){
-        ContentValues values = new ContentValues();
-        values.put("upperBloodPressure", upperBP);
-        values.put("lowerBloodPressure", lowerBP);
 
-        db.insert("bloodpressuredb",null,values);
-    }
+
+//    private void insertData(SQLiteDatabase db, int maxBP, int minBP){
+//        ContentValues values = new ContentValues();
+//        values.put("upperBloodPressure", maxBP);
+//        values.put("lowerBloodPressure", minBP);
+//
+//        db.insert("bloodpressuredb",null,values);
+//    }
 //    private void setViews(){
 //        Button button = (Button)findViewById(R.id.btEntry);
 //        button.setOnClickListener(onClick_button);
