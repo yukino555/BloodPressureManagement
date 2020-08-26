@@ -3,24 +3,32 @@ package example.com.bloodpressuremanagementuser;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteStatement;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class BloodPressureAdditionActivity extends AppCompatActivity {
     TextView textView;
-    EditText maxBP;
-    EditText minBP;
+    EditText getMaxBP;
+    EditText getMinBP;
+    EditText getPulse;
     Button btEntry;
     Button btShow;
     DatabaseHelper helper;
     SQLiteDatabase db;
     int _id;
+    public static String getNowDate(){
+        final DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        final Date date = new Date(System.currentTimeMillis());
+        return df.format(date);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,41 +36,33 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_blood_pressure_addition);
         helper = new DatabaseHelper(BloodPressureAdditionActivity.this);
 
-        textView = findViewById(R.id.text_view);
-        maxBP = findViewById(R.id.etUpperBloodPressure);
-        minBP = findViewById(R.id.etLowerBloodPressure);
         btEntry = findViewById(R.id.btEntry);
         btEntry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 db = helper.getWritableDatabase();
-//                try{
-//                    /*
-//                    　ステートメント、SQL文を実行するオブジェクト
-//                     */
-//                    SQLiteStatement stmt;
-//                    String sqlInsert =
-//                            "INSERT INTO bloodpressuredb (_id, _maxBP, _minBP) VALUES(int,int,int)";
-//                    stmt = db.compileStatement(sqlInsert);
-//                    stmt.executeInsert();
-//                }
-//                finally {
-//                    db.close();
-//                }
+                textView = findViewById(R.id.text_view);
+                getMaxBP = findViewById(R.id.etUpperBloodPressure);
+                final int maxBP = Integer.parseInt(getMaxBP.getText().toString());
+                getMinBP = findViewById(R.id.etLowerBloodPressure);
+                final int minBP = Integer.parseInt(getMinBP.getText().toString());
+                getPulse = findViewById(R.id.etPulse);
+                final int pulse = Integer.parseInt(getPulse.getText().toString());
+                insertData(db,maxBP,minBP,pulse);
 
-                // 上はテキストに沿った形。動かない。。SQL文使いたいのにね
-                ContentValues values = new ContentValues();
-
-                String upperBP = maxBP.getText().toString();
-                String lowerBP = minBP.getText().toString();
-
-                values.put("maxBP", upperBP);
-                values.put("minBP", lowerBP);
-
-                db.insert("bloodpressuredb", null, values);
-                db.close();
             }
         });
+    }
+
+    public void insertData(SQLiteDatabase db, int maxBP, int minBP, int pulse) {
+        ContentValues values = new ContentValues();
+        values.put("date", getNowDate());
+        values.put("maxBP", maxBP);
+        values.put("minBP", minBP);
+        values.put("pulse", pulse);
+
+        db.insert("bloodpressuredb", null, values);
+        db.close();
     }
 }
 
@@ -81,7 +81,7 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
 //         */
 //        String sql = "SELECT * FROM bloodpressuredb WHERE _id = " + _id;
 //        Cursor cursor = db.query(
-//                "bloodpressuredb",
+//                "BPdb",
 //                new String[] {"maxBP","minBP"},
 //                null,
 //                null,
@@ -102,53 +102,6 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
 //        textView.setText(sb.toString());
 //    }
 
-//    public void onEntryButtonClick(View view){
-//        EditText maxBP = findViewById(R.id.etUpperBloodPressure);
-//        EditText minBp = findViewById(R.id.etLowerBloodPressure);
-//    }
-//    public class onClickListener implements View.OnClickListener{
-//        @Override
-//            public void onClick(View view){
-                // DataBase
-//                DatabaseHelper helper = new DatabaseHelper(BloodPressureAdditionActivity.this);
-//                SQLiteDatabase db = helper.getWritableDatabase();
-//                ContentValues values = new ContentValues();
-//
-//
-//                String upperBP = maxBP.getText().toString();
-//                String lowerBP = minBP.getText().toString();
-//
-//                values.put("maxBP", upperBP);
-//                values.put("minBP", lowerBP);
-//
-//                db.insert("bloodpressuredb", null, values);
-//        }
-//            public void saveData(View view){
-//                SQLiteDatabase db = helper.getWritableDatabase();
-//                ContentValues values = new ContentValues();
-//            }
-
-
-
-
-//    private void insertData(SQLiteDatabase db, int maxBP, int minBP){
-//        ContentValues values = new ContentValues();
-//        values.put("upperBloodPressure", maxBP);
-//        values.put("lowerBloodPressure", minBP);
-//
-//        db.insert("bloodpressuredb",null,values);
-//    }
-//    private void setViews(){
-//        Button button = (Button)findViewById(R.id.btEntry);
-//        button.setOnClickListener(onClick_button);
-//    }
-//    private View.OnClickListener onClick_button = new View.OnClickListener(){
-//        @Override
-//        public void onClick(View v) {
-//            Intent intent = new Intent(BloodPressureAdditionActivity.this, HomeActivity.class);
-//            startActivity(intent);
-//        }
-//    };
 
      //登録ボタンがタップされた時の処理メソッド
 //    public void onEntryButtonClick(View view) {
