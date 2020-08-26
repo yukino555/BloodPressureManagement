@@ -14,6 +14,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_NAME_TITLE = "maxBP"; // 最高血圧
     private static final String COLUMN_NAME_SUBTITLE = "minBP"; // 最低血圧
 
+    // SQLでテーブルを作る
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + TABLE_NAME + "(" +
                     _ID + " INTEGER PRIMARY KEY," +
@@ -23,16 +24,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + TABLE_NAME;
 
+    // コンストラクタ
     DatabaseHelper(Context context){
         super(context,DATABASE_NAME,null,DATABASE_VERSION);
     }
 
+    /*
+     SQLiteOpenHelperクラスを継承している。onCreate()とonUpgrade()の2つのオーバーライドがないとコンパエラー
+     */
     @Override
     public void onCreate(SQLiteDatabase db){
         db.execSQL(SQL_CREATE_ENTRIES);
-        saveData(db,105,71);
-        saveData(db,104,69);
-        saveData(db,108,71);
+        // 必要ないよね
+//        saveData(db,105,71);
+//        saveData(db,104,69);
+//        saveData(db,108,71);
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
@@ -42,11 +48,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion){
         onUpgrade(db, oldVersion, newVersion);
     }
-    public void saveData(SQLiteDatabase db, int maxBP, int minBP) {
-        ContentValues values = new ContentValues();
-        values.put("maxBP", maxBP);
-        values.put("minBP", minBP);
-
-        db.insert("bloodpressuredb",null,values);
-    }
+    // 必要ないよね。BPAdditionの値を追加していくわけだし
+//    public void saveData(SQLiteDatabase db, int maxBP, int minBP) {
+//        ContentValues values = new ContentValues();
+//        values.put("maxBP", maxBP);
+//        values.put("minBP", minBP);
+//
+//        db.insert("bloodpressuredb",null,values);
+//    }
 }
