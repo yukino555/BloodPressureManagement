@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,10 +16,11 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
     TextView textView;
     EditText maxBP;
     EditText minBP;
-    Button _btEntry;
-    Button _btShow;
+    Button btEntry;
+    Button btShow;
     DatabaseHelper helper;
     SQLiteDatabase db;
+    int _id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +31,26 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
         textView = findViewById(R.id.text_view);
         maxBP = findViewById(R.id.etUpperBloodPressure);
         minBP = findViewById(R.id.etLowerBloodPressure);
-        _btEntry = findViewById(R.id.btEntry);
-        _btEntry.setOnClickListener(new View.OnClickListener() {
+        btEntry = findViewById(R.id.btEntry);
+        btEntry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 db = helper.getWritableDatabase();
+//                try{
+//                    /*
+//                    　ステートメント、SQL文を実行するオブジェクト
+//                     */
+//                    SQLiteStatement stmt;
+//                    String sqlInsert =
+//                            "INSERT INTO bloodpressuredb (_id, _maxBP, _minBP) VALUES(int,int,int)";
+//                    stmt = db.compileStatement(sqlInsert);
+//                    stmt.executeInsert();
+//                }
+//                finally {
+//                    db.close();
+//                }
+
+                // 上はテキストに沿った形。動かない。。SQL文使いたいのにね
                 ContentValues values = new ContentValues();
 
                 String upperBP = maxBP.getText().toString();
@@ -43,11 +60,12 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
                 values.put("minBP", lowerBP);
 
                 db.insert("bloodpressuredb", null, values);
+                db.close();
             }
         });
 
-        _btShow = findViewById(R.id.btShow);
-        _btShow.setOnClickListener(new View.OnClickListener() {
+        btShow = findViewById(R.id.btShow);
+        btShow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 readData();
@@ -56,6 +74,10 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
     }
     public void readData(){
         db = helper.getReadableDatabase();
+        /*
+         テキストのSQL文を使いたいのだが、_cocktailIdが当てはまるのが何かがわからない
+         */
+        String sql = "SELECT * FROM bloodpressuredb WHERE _id = " + _id;
         Cursor cursor = db.query(
                 "bloodpressuredb",
                 new String[] {"maxBP","minBP"},

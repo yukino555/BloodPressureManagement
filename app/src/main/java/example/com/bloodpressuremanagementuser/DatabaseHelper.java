@@ -5,16 +5,22 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
+/*
+ SQLiteのテーブル名とカラム名・・・小文字とアンダースコア(_)
+ なんでかはわからない
+ */
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "Bloodpressure.db";
-    private static final String TABLE_NAME = "bloodpressuredb";
+    private static final String TABLE_NAME = "_bloodpressuredb";
     private static final String _ID = "_id";
-    private static final String COLUMN_NAME_TITLE = "maxBP"; // 最高血圧
-    private static final String COLUMN_NAME_SUBTITLE = "minBP"; // 最低血圧
+    private static final String COLUMN_NAME_TITLE = "_maxBP"; // 最高血圧
+    private static final String COLUMN_NAME_SUBTITLE = "_minBP"; // 最低血圧
 
-    // SQLでテーブルを作る
+    /*
+     SQLでテーブルを作る
+     _id ・・・ カラム名に「_id」と記述するとOSが自動的に主キーを取ってくれる。自動に番号が振られる
+     */
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + TABLE_NAME + "(" +
                     _ID + " INTEGER PRIMARY KEY," +
@@ -31,10 +37,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /*
      SQLiteOpenHelperクラスを継承している。onCreate()とonUpgrade()の2つのオーバーライドがないとコンパエラー
+     onCreate()は一回しか実行しないので、コメントアウトしてもsaveData()の値が消えないよ( ﾉД`)
      */
     @Override
     public void onCreate(SQLiteDatabase db){
-        db.execSQL(SQL_CREATE_ENTRIES);
+        db.execSQL(SQL_CREATE_ENTRIES); // 引数がテーブルだよ。上で作ってあるよ
         // 必要ないよね
 //        saveData(db,105,71);
 //        saveData(db,104,69);
