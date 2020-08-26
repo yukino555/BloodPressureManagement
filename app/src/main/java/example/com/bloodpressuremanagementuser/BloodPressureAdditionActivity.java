@@ -3,6 +3,7 @@ package example.com.bloodpressuremanagementuser;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -48,7 +49,10 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
                 final int minBP = Integer.parseInt(getMinBP.getText().toString());
                 getPulse = findViewById(R.id.etPulse);
                 final int pulse = Integer.parseInt(getPulse.getText().toString());
-                insertData(db,maxBP,minBP,pulse);
+                insertData(db,maxBP,minBP,pulse);  // データベースに値を登録するメソッド
+                // 第一引数、このページ　第二引数、遷移したいページ
+                Intent intent = new Intent(BloodPressureAdditionActivity.this, HomeActivity.class);
+                startActivity(intent);
 
             }
         });
@@ -103,12 +107,5 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
 //    }
 
 
-     //登録ボタンがタップされた時の処理メソッド
-//    public void onEntryButtonClick(View view) {
-//        EditText etUpperBloodPressure = findViewById(R.id.etUpperBloodPressure);
-//        EditText etLowerBloodPressure = findViewById(R.id.etLowerBloodPressure);
-        // 第一引数、このページ　第二引数、遷移したいページ
-//        Intent intent = new Intent(UserFinishActivity.this, BloodPressureAdditionActivity.class);
-//        startActivity(intent);
 
 
