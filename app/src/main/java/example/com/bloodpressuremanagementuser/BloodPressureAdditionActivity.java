@@ -63,43 +63,45 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
                 db.close();
             }
         });
-
-        btShow = findViewById(R.id.btShow);
-        btShow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                readData();
-            }
-        });
-    }
-    public void readData(){
-        db = helper.getReadableDatabase();
-        /*
-         テキストのSQL文を使いたいのだが、_cocktailIdが当てはまるのが何かがわからない
-         */
-        String sql = "SELECT * FROM bloodpressuredb WHERE _id = " + _id;
-        Cursor cursor = db.query(
-                "bloodpressuredb",
-                new String[] {"maxBP","minBP"},
-                null,
-                null,
-                null,
-                null,
-                null
-        );
-        cursor.moveToFirst();
-        StringBuilder sb = new StringBuilder();
-        for(int i=0; i<cursor.getCount(); i++){
-            sb.append(cursor.getInt(0));
-            sb.append("mmHg");
-            sb.append(cursor.getInt(1));
-            sb.append("mmHg");
-            cursor.moveToNext();
-        }
-        cursor.close();
-        textView.setText(sb.toString());
     }
 }
+
+//        btShow = findViewById(R.id.btShow);
+//        btShow.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                readData();
+//            }
+//        });
+//    }
+//    public void readData(){
+//        db = helper.getReadableDatabase();
+//        /*
+//         テキストのSQL文を使いたいのだが、_cocktailIdが当てはまるのが何かがわからない
+//         */
+//        String sql = "SELECT * FROM bloodpressuredb WHERE _id = " + _id;
+//        Cursor cursor = db.query(
+//                "bloodpressuredb",
+//                new String[] {"maxBP","minBP"},
+//                null,
+//                null,
+//                null,
+//                null,
+//                null
+//        );
+//        cursor.moveToFirst();
+//        StringBuilder sb = new StringBuilder();
+//        for(int i=0; i<cursor.getCount(); i++){
+//            sb.append(cursor.getInt(0));
+//            sb.append("mmHg");
+//            sb.append(cursor.getInt(1));
+//            sb.append("mmHg");
+//            cursor.moveToNext();
+//        }
+//        cursor.close();
+//        textView.setText(sb.toString());
+//    }
+
 //    public void onEntryButtonClick(View view){
 //        EditText maxBP = findViewById(R.id.etUpperBloodPressure);
 //        EditText minBp = findViewById(R.id.etLowerBloodPressure);
