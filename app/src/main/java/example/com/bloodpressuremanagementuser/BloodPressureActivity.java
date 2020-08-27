@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class BloodPressureActivity extends AppCompatActivity{
+public class BloodPressureActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,13 +17,13 @@ public class BloodPressureActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 EntryUserInformationDialogFragment dialogFragment = new EntryUserInformationDialogFragment();
-                dialogFragment.show(getSupportFragmentManager(),"EntryUserInformationDialogFragment");
+                dialogFragment.show(getSupportFragmentManager(), "EntryUserInformationDialogFragment");
             }
         });
-    // 登録ボタンを押したら画面遷移用の記述
+        // 登録ボタンを押したら画面遷移用の記述
 //        findViewById(R.id.btEntry).setOnClickListener(this);
     }
-
+}
 
 //    @Override
 //    public void onStart(){
@@ -64,4 +64,4 @@ public class BloodPressureActivity extends AppCompatActivity{
 //        Intent intent = new Intent(this, UserFinishActivity.class);
 //        startActivity(intent);
 //    }
-}
+

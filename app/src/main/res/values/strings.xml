@@ -42,4 +42,6 @@
     <string name="tv_pulseUnit">拍/脈</string>
     <string name="bt_back">戻る</string>
     <string name="bt_show">見る</string>
+    <string name="dialog_entryMsg">登録しました</string>
+    <string name="dialog_bt_ok">OK</string>
 </resources>
