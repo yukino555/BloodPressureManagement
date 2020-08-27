@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -70,17 +71,41 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
     //  最高血圧、最低血圧、脈拍
     public void insertData(SQLiteDatabase db, int maxBP, int minBP, int pulse) {
         ContentValues values = new ContentValues();
-        try{
+        try {
             values.put("date", getNowDate());
             values.put("maxBP", maxBP);
             values.put("minBP", minBP);
             values.put("pulse", pulse);
             db.insert("bloodpressuredb", null, values);
-        } finally{
+        } finally {
             db.close();
         }
     }
 }
+
+//    public void readData(){
+//        db = helper.getReadableDatabase();
+//        Cursor cursor = db.query(
+//                "bloodpressuredb",
+//                new String[] {"maxBP","minBP"},
+//                null,
+//                null,
+//                null,
+//                null,
+//                null
+//        );
+//        cursor.moveToFirst();
+//        StringBuilder sb = new StringBuilder();
+//        for(int i=0; i<cursor.getCount(); i++){
+//            sb.append(cursor.getInt(0));
+//            sb.append("mmHg");
+//            sb.append(cursor.getInt(1));
+//            sb.append("mmHg");
+//            cursor.moveToNext();
+//
+//        }
+//    }
+
 //  脈拍を入力しなかった場合のメソッド
 //    public void insertData(SQLiteDatabase db, int maxBP, int minBP){
 //        ContentValues values = new ContentValues();
@@ -121,7 +146,6 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
 //        cursor.close();
 //        textView.setText(sb.toString());
 //    }
-
 
 
 
