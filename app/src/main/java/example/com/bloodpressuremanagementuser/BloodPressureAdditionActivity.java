@@ -62,8 +62,7 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
         btShow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(BloodPressureAdditionActivity.this, ListActivity.class);
-                startActivity(intent);
+                readData();
             }
         });
     }
@@ -81,30 +80,30 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
             db.close();
         }
     }
-}
 
-//    public void readData(){
-//        db = helper.getReadableDatabase();
-//        Cursor cursor = db.query(
-//                "bloodpressuredb",
-//                new String[] {"maxBP","minBP"},
-//                null,
-//                null,
-//                null,
-//                null,
-//                null
-//        );
-//        cursor.moveToFirst();
-//        StringBuilder sb = new StringBuilder();
-//        for(int i=0; i<cursor.getCount(); i++){
-//            sb.append(cursor.getInt(0));
-//            sb.append("mmHg");
-//            sb.append(cursor.getInt(1));
-//            sb.append("mmHg");
-//            cursor.moveToNext();
-//
-//        }
-//    }
+    public void readData() {
+        db = helper.getReadableDatabase();
+        Cursor cursor = db.query(
+                "bloodpressuredb",
+                new String[]{"maxBP", "minBP"},
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+        cursor.moveToFirst();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < cursor.getCount(); i++) {
+            sb.append(cursor.getInt(0));
+            sb.append("mmHg");
+            sb.append(cursor.getInt(1));
+            sb.append("mmHg");
+            cursor.moveToNext();
+
+        }
+    }
+}
 
 //  脈拍を入力しなかった場合のメソッド
 //    public void insertData(SQLiteDatabase db, int maxBP, int minBP){
