@@ -74,6 +74,7 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
         btShow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 db = helper.getReadableDatabase();
                 Cursor cursor = db.query(
                         "_BPdb",
@@ -87,13 +88,16 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
                 cursor.moveToFirst();
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < cursor.getCount(); i++) {
-        //            sb.append(cursor.getInt(0));
-        //            sb.append("mmHg");
-        //            sb.append(cursor.getInt(1));
-        //            sb.append("mmHg");
-                    cursor.moveToNext();
+                    sb.append(cursor.getInt(0));
+                    sb.append(cursor.getInt(1));
+                    sb.append("mmHg");
+                    sb.append(cursor.getInt(2));
+                    sb.append("mmHg");
 
+                    cursor.moveToNext();
                 }
+                cursor.close();
+                textView.setText(sb.toString());
             }
         });
         btNext = findViewById(R.id.btNext);
@@ -102,6 +106,7 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(BloodPressureAdditionActivity.this,ListActivity.class);
                 startActivity(intent);
+
             }
         });
     }
