@@ -24,6 +24,7 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
     EditText getPulse;
     Button btEntry;
     Button btShow;
+    Button btNext;
     DatabaseHelper helper;
     SQLiteDatabase db;
     int _id;
@@ -39,12 +40,13 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blood_pressure_addition);
         helper = new DatabaseHelper(BloodPressureAdditionActivity.this);
+        db = helper.getWritableDatabase();
+
 
         btEntry = findViewById(R.id.btEntry);
         btEntry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                db = helper.getWritableDatabase();
                 textView = findViewById(R.id.text_view);
                 getMaxBP = findViewById(R.id.etUpperBloodPressure);
                 final int maxBP = Integer.parseInt(getMaxBP.getText().toString());
@@ -52,7 +54,17 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
                 final int minBP = Integer.parseInt(getMinBP.getText().toString());
                 getPulse = findViewById(R.id.etPulse);
                 final int pulse = Integer.parseInt(getPulse.getText().toString());
-                insertData(db, maxBP, minBP, pulse);  // データベースに値を登録するメソッド
+                ContentValues values = new ContentValues();
+                try {
+                    values.put("date", getNowDate());
+                    values.put("_maxBP", maxBP);
+                    values.put("_minBP", minBP);
+                    values.put("_pulse", pulse);
+                    db.insert("_BPdb", null, values);
+                } finally {
+                    db.close();
+                }
+//                insertData(db, maxBP, minBP, pulse);  // データベースに値を登録するメソッド
 //                insertData(db,maxBP,minBP);
                 BPEntryDialogFragment dialogFragment = new BPEntryDialogFragment();
                 dialogFragment.show(getSupportFragmentManager(), "BPDialogFragment");
@@ -62,48 +74,53 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
         btShow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                readData();
+                db = helper.getReadableDatabase();
+                Cursor cursor = db.query(
+                        "_BPdb",
+                        new String[]{"_maxBP", "_minBP","_pulse"},
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                );
+                cursor.moveToFirst();
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < cursor.getCount(); i++) {
+        //            sb.append(cursor.getInt(0));
+        //            sb.append("mmHg");
+        //            sb.append(cursor.getInt(1));
+        //            sb.append("mmHg");
+                    cursor.moveToNext();
+
+                }
+            }
+        });
+        btNext = findViewById(R.id.btNext);
+        btNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(BloodPressureAdditionActivity.this,ListActivity.class);
+                startActivity(intent);
             }
         });
     }
-
-    //  最高血圧、最低血圧、脈拍
-    public void insertData(SQLiteDatabase db, int maxBP, int minBP, int pulse) {
-        ContentValues values = new ContentValues();
-        try {
-            values.put("date", getNowDate());
-            values.put("_maxBP", maxBP);
-            values.put("_minBP", minBP);
-            values.put("_pulse", pulse);
-            db.insert("BPdb", null, values);
-        } finally {
-            db.close();
-        }
-    }
-
-    public void readData() {
-        db = helper.getReadableDatabase();
-        Cursor cursor = db.query(
-                "BPdb",
-                new String[]{"date","_maxBP", "_minBP","_pulse"},
-                null,
-                null,
-                null,
-                null,
-                null
-        );
-        cursor.moveToFirst();
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < cursor.getCount(); i++) {
-//            sb.append(cursor.getInt(0));
-//            sb.append("mmHg");
-//            sb.append(cursor.getInt(1));
-//            sb.append("mmHg");
-            cursor.moveToNext();
-
-        }
-    }
 }
+    //  最高血圧、最低血圧、脈拍
+//    public void insertData(SQLiteDatabase db, int maxBP, int minBP, int pulse) {
+//        ContentValues values = new ContentValues();
+//        try {
+//            values.put("date", getNowDate());
+//            values.put("_maxBP", maxBP);
+//            values.put("_minBP", minBP);
+//            values.put("_pulse", pulse);
+//            db.insert("BPdb", null, values);
+//        } finally {
+//            db.close();
+//        }
+//    }
+
+
 
 //  脈拍を入力しなかった場合のメソッド
 //    public void insertData(SQLiteDatabase db, int maxBP, int minBP){

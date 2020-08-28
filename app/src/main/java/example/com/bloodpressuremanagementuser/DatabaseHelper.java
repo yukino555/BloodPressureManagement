@@ -36,15 +36,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     COLUMN_NAME_SUBTITLE + " INTEGER)";
 
     private static final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS " + TABLE_NAME;
+            "DROP TABLE IF EXISTS " + TABLE_NAME2;
     // テーブル➁
     private static final String SQL_CREATE_ENTRIES2 =
-            "CREATE TABLE" + TABLE_NAME2 + "(" +
-                    _ID + "INTEGER," +
-                    PRIMARY_KEY + "TEXT," +
-                    COLUMN_MAXBP + "INTEGER," +
-                    COLUMN_MINBP + "INTEGER," +
-                    COLUMN_PULSE + "INTEGER)";
+            "CREATE TABLE " + TABLE_NAME2 + "(" +
+                    _ID + " INTEGER," +
+                    PRIMARY_KEY + " TEXT," +
+                    COLUMN_MAXBP + " INTEGER," +
+                    COLUMN_MINBP + " INTEGER," +
+                    COLUMN_PULSE + " INTEGER)";
 
     // コンストラクタ
     DatabaseHelper(Context context){
@@ -57,7 +57,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase db){
-        db.execSQL(SQL_CREATE_ENTRIES); // 引数がテーブルだよ。上で作ってあるよ
+        db.execSQL(SQL_CREATE_ENTRIES2); // 引数がテーブルだよ。上で作ってあるよ
         // 必要ないよね
 //        saveData(db,105,71);
 //        saveData(db,104,69);
