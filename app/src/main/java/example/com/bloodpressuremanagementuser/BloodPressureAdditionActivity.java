@@ -75,7 +75,7 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
             values.put("maxBP", maxBP);
             values.put("minBP", minBP);
             values.put("pulse", pulse);
-            db.insert("bloodpressuredb", null, values);
+            db.insert("BPdb", null, values);
         } finally {
             db.close();
         }
