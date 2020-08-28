@@ -72,9 +72,9 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
         ContentValues values = new ContentValues();
         try {
             values.put("date", getNowDate());
-            values.put("maxBP", maxBP);
-            values.put("minBP", minBP);
-            values.put("pulse", pulse);
+            values.put("_maxBP", maxBP);
+            values.put("_minBP", minBP);
+            values.put("_pulse", pulse);
             db.insert("BPdb", null, values);
         } finally {
             db.close();
@@ -84,8 +84,8 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
     public void readData() {
         db = helper.getReadableDatabase();
         Cursor cursor = db.query(
-                "bloodpressuredb",
-                new String[]{"maxBP", "minBP"},
+                "BPdb",
+                new String[]{"date","_maxBP", "_minBP","_pulse"},
                 null,
                 null,
                 null,
@@ -95,10 +95,10 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
         cursor.moveToFirst();
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < cursor.getCount(); i++) {
-            sb.append(cursor.getInt(0));
-            sb.append("mmHg");
-            sb.append(cursor.getInt(1));
-            sb.append("mmHg");
+//            sb.append(cursor.getInt(0));
+//            sb.append("mmHg");
+//            sb.append(cursor.getInt(1));
+//            sb.append("mmHg");
             cursor.moveToNext();
 
         }
