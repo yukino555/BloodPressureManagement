@@ -11,17 +11,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class BloodPressureAdditionActivity extends AppCompatActivity {
-    TextView textView;
     EditText getMaxBP;
     EditText getMinBP;
     EditText getPulse;
     Button btEntry;
-    Button btShow;
     Button btNext;
     DatabaseHelper helper;
     SQLiteDatabase db;
@@ -51,9 +51,8 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
                 final int pulse = Integer.parseInt(getPulse.getText().toString());
 
                 insertData(db, maxBP, minBP, pulse);  // データベースに値を登録するメソッド
+                Toast.makeText(BloodPressureAdditionActivity.this, "登録しました", Toast.LENGTH_SHORT).show();
 //                insertData(db,maxBP,minBP);
-                BPEntryDialogFragment dialogFragment = new BPEntryDialogFragment();
-                dialogFragment.show(getSupportFragmentManager(), "BPDialogFragment");
             }
         });
 
@@ -77,6 +76,7 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
             db.insert("_BPtable", null, values);
         } finally {
             db.close();
+
         }
     }
 }
