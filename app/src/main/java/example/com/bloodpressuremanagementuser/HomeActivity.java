@@ -45,6 +45,7 @@ public class HomeActivity extends AppCompatActivity {
                 sb.append("mmHg");
                 sb.append(cursor.getInt(3));
                 sb.append("拍/分");
+                sb.append("\n");
                 cursor.moveToNext();
             }
             cursor.close();
