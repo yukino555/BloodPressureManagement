@@ -11,8 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import java.io.FileNotFoundException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -47,7 +45,6 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
         btEntry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                textView = findViewById(R.id.text_view);
                 getMaxBP = findViewById(R.id.etUpperBloodPressure);
                 final int maxBP = Integer.parseInt(getMaxBP.getText().toString());
                 getMinBP = findViewById(R.id.etLowerBloodPressure);
@@ -56,11 +53,11 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
                 final int pulse = Integer.parseInt(getPulse.getText().toString());
                 ContentValues values = new ContentValues();
                 try {
-                    values.put("date", getNowDate());
+                    values.put("_date", getNowDate());
                     values.put("_maxBP", maxBP);
                     values.put("_minBP", minBP);
                     values.put("_pulse", pulse);
-                    db.insert("_BPdb", null, values);
+                    db.insert("_BPtable", null, values);
                 } finally {
                     db.close();
                 }
@@ -74,11 +71,10 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
         btShow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 db = helper.getReadableDatabase();
                 Cursor cursor = db.query(
-                        "_BPdb",
-                        new String[]{"_maxBP", "_minBP","_pulse"},
+                        "_BPtable",
+                        new String[]{"_date", "_maxBP", "_minBP"," _pulse"},
                         null,
                         null,
                         null,
@@ -88,15 +84,16 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
                 cursor.moveToFirst();
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < cursor.getCount(); i++) {
-                    sb.append(cursor.getInt(0));
+                    sb.append(cursor.getString(0));
                     sb.append(cursor.getInt(1));
                     sb.append("mmHg");
                     sb.append(cursor.getInt(2));
                     sb.append("mmHg");
-
+                    sb.append(cursor.getInt(3));
                     cursor.moveToNext();
                 }
                 cursor.close();
+                textView = findViewById(R.id.text_view);
                 textView.setText(sb.toString());
             }
         });
@@ -106,7 +103,6 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(BloodPressureAdditionActivity.this,ListActivity.class);
                 startActivity(intent);
-
             }
         });
     }
