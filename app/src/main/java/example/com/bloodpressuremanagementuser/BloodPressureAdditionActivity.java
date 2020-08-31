@@ -51,17 +51,8 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
                 final int minBP = Integer.parseInt(getMinBP.getText().toString());
                 getPulse = findViewById(R.id.etPulse);
                 final int pulse = Integer.parseInt(getPulse.getText().toString());
-                ContentValues values = new ContentValues();
-                try {
-                    values.put("_date", getNowDate());
-                    values.put("_maxBP", maxBP);
-                    values.put("_minBP", minBP);
-                    values.put("_pulse", pulse);
-                    db.insert("_BPtable", null, values);
-                } finally {
-                    db.close();
-                }
-//                insertData(db, maxBP, minBP, pulse);  // データベースに値を登録するメソッド
+
+                insertData(db, maxBP, minBP, pulse);  // データベースに値を登録するメソッド
 //                insertData(db,maxBP,minBP);
                 BPEntryDialogFragment dialogFragment = new BPEntryDialogFragment();
                 dialogFragment.show(getSupportFragmentManager(), "BPDialogFragment");
@@ -106,32 +97,24 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
             }
         });
     }
+    public void insertData(SQLiteDatabase db, int maxBP, int minBP, int pulse) {
+        ContentValues values = new ContentValues();
+        try {
+            values.put("_date", getNowDate());
+            values.put("_maxBP", maxBP);
+            values.put("_minBP", minBP);
+            values.put("_pulse", pulse);
+            db.insert("_BPtable", null, values);
+        } finally {
+            db.close();
+        }
+    }
 }
-    //  最高血圧、最低血圧、脈拍
-//    public void insertData(SQLiteDatabase db, int maxBP, int minBP, int pulse) {
-//        ContentValues values = new ContentValues();
-//        try {
-//            values.put("date", getNowDate());
-//            values.put("_maxBP", maxBP);
-//            values.put("_minBP", minBP);
-//            values.put("_pulse", pulse);
-//            db.insert("BPdb", null, values);
-//        } finally {
-//            db.close();
-//        }
-//    }
 
 
 
-//  脈拍を入力しなかった場合のメソッド
-//    public void insertData(SQLiteDatabase db, int maxBP, int minBP){
-//        ContentValues values = new ContentValues();
-//        values.put("date", getNowDate());
-//        values.put("maxBP", maxBP);
-//        values.put("minBP", minBP);
+
 //
-//        db.insert("bloodpressuredb", null, values);
-//        db.close();
 //    }
 
 
