@@ -22,36 +22,33 @@ public class HomeActivity extends AppCompatActivity {
         db = helper.getWritableDatabase();
 
         btShow = findViewById(R.id.btShow);
-        btShow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                db = helper.getReadableDatabase();
-                Cursor cursor = db.query(
-                        "_BPtable",
-                        new String[]{"_date", "_maxBP", "_minBP", " _pulse"},
-                        null,
-                        null,
-                        null,
-                        null,
-                        null
-                );
-                cursor.moveToFirst();
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < cursor.getCount(); i++) {
-                    sb.append(cursor.getString(0));
-                    sb.append("");
-                    sb.append(cursor.getInt(1));
-                    sb.append("mmHg");
-                    sb.append(cursor.getInt(2));
-                    sb.append("mmHg");
-                    sb.append(cursor.getInt(3));
-                    sb.append("拍/分");
-                    cursor.moveToNext();
-                }
-                cursor.close();
-                textView = findViewById(R.id.text_view);
-                textView.setText(sb.toString());
-            }
-        });
     }
+        public void onShow(View view) {
+            db = helper.getReadableDatabase();
+            Cursor cursor = db.query(
+                    "_BPtable",
+                    new String[]{"_date", "_maxBP", "_minBP", " _pulse"},
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+            );
+            cursor.moveToFirst();
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < cursor.getCount(); i++) {
+                sb.append(cursor.getString(0));
+                sb.append(" ");
+                sb.append(cursor.getInt(1));
+                sb.append("mmHg");
+                sb.append(cursor.getInt(2));
+                sb.append("mmHg");
+                sb.append(cursor.getInt(3));
+                sb.append("拍/分");
+                cursor.moveToNext();
+            }
+            cursor.close();
+            textView = findViewById(R.id.text_view);
+            textView.setText(sb.toString());
+        }
 }
