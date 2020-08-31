@@ -24,8 +24,6 @@
     </string-array>
     <string name="tv_attention2">あとで設定から変更ができます</string>
     <string name="bt_entry">登録</string>
-    <string name="tv_practice">これは練習です</string>
-    <string name="tv_practice2">更に練習です</string>
     <string name="dialog_title">登録確認</string>
     <string name="dialog_msg">入力した内容で登録します。よろしいですか。</string>
     <string name="dialog_btn_ok">確定</string>
@@ -35,6 +33,7 @@
     <string name="dialog_ok_toast">確定</string>
     <string name="dialog_ng_toast">キャンセル</string>
     <string name="tv_countingTime">測定時間</string>
+    <string name="bt_time">現在時刻</string>
     <string name="tv_upperBloodPressure">最高血圧</string>
     <string name="tv_lowerBloodPressure">最低血圧</string>
     <string name="tv_mmHg">mmHg</string>
