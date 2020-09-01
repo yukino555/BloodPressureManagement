@@ -14,6 +14,7 @@
         android:onClick="onShow"
         android:orientation="vertical"
         android:text="@string/bt_show"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,6 +34,8 @@
                 android:id="@+id/text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="18dp"
+                app:autoSizeTextType="uniform"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btShow" />
@@ -55,6 +58,8 @@
         android:id="@+id/scrollView2"
         android:layout_width="wrap_content"
         android:layout_height="250dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btAvg"
         tools:ignore="MissingConstraints">
 
@@ -80,8 +85,8 @@
         android:id="@+id/btMaxValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/bt_maxValue"
         android:onClick="onMaxValue"
+        android:text="@string/bt_maxValue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline5"
         app:layout_constraintTop_toBottomOf="@+id/scrollView" />
@@ -90,7 +95,9 @@
         android:id="@+id/scrollView3"
         android:layout_width="wrap_content"
         android:layout_height="250dp"
-        app:layout_constraintTop_toBottomOf="@+id/btAvg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toBottomOf="@+id/btMaxValue"
         tools:ignore="MissingConstraints">
 
         <LinearLayout

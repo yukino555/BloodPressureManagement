@@ -19,9 +19,6 @@ public class HomeActivity extends AppCompatActivity {
     TextView textView;
     TextView textView2;
     TextView textView3;
-    int maxUpperBP;
-    int maxLowerBP;
-    int maxPulse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,12 +111,15 @@ public class HomeActivity extends AppCompatActivity {
         );
         cursor.moveToFirst();
         int minValue = Integer.MIN_VALUE;
+        int maxUpperBP = Integer.MIN_VALUE;
+        int maxLowerBP = Integer.MIN_VALUE;
+        int maxPulse = Integer.MIN_VALUE;
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < cursor.getCount(); i++) {
-            maxUpperBP = Math.max(minValue,cursor.getInt(0));
-            maxLowerBP = Math.max(minValue,cursor.getInt(1));
-            maxPulse = Math.max(minValue,cursor.getInt(2));
-            cursor.moveToNext();
+        for (int i = 0; i < cursor.getCount(); i++) {  // 列(column)が次に移る
+            maxUpperBP = Math.max(maxUpperBP, cursor.getInt(0));
+            maxLowerBP = Math.max(maxLowerBP, cursor.getInt(1));
+            maxPulse = Math.max(maxPulse, cursor.getInt(2));
+            cursor.moveToNext();  // 行(row)が次に移る
         }
         cursor.close();
         sb.append("最高血圧 : ");
