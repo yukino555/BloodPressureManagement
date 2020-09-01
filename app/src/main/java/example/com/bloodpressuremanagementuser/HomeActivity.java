@@ -19,6 +19,9 @@ public class HomeActivity extends AppCompatActivity {
     TextView textView;
     TextView textView2;
     TextView textView3;
+    int maxUpperBP;
+    int maxLowerBP;
+    int maxPulse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,9 +113,6 @@ public class HomeActivity extends AppCompatActivity {
                 null
         );
         cursor.moveToFirst();
-        int maxUpperBP;
-        int maxLowerBP;
-        int maxPulse;
         int minValue = Integer.MIN_VALUE;
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < cursor.getCount(); i++) {
