@@ -13,6 +13,7 @@ public class HomeActivity extends AppCompatActivity {
     DatabaseHelper helper;
     SQLiteDatabase db;
     Button btShow;
+    Button btAvg;
     TextView textView;
     TextView textView2;
 
@@ -24,6 +25,8 @@ public class HomeActivity extends AppCompatActivity {
         db = helper.getWritableDatabase();
 
         btShow = findViewById(R.id.btShow);
+        btAvg = findViewById(R.id.btAvg);
+
     }
     public void onShow(View view) {
         db = helper.getReadableDatabase();
@@ -57,6 +60,7 @@ public class HomeActivity extends AppCompatActivity {
 /*
  データベースに登録したデータを呼び出し平均を出したい
  */
+//  maxBPを全部取り出し、繰り返して全部足す
     public void onAvg(View view) {
         db = helper.getReadableDatabase();
         Cursor cursor = db.query(
@@ -73,11 +77,11 @@ public class HomeActivity extends AppCompatActivity {
         cursor.moveToFirst();
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < cursor.getCount(); i++) {
-            sb.append(addMaxBP += cursor.getInt(i));
+            addMaxBP += cursor.getInt(0);
             cursor.moveToNext();
         }
         cursor.close();
-        int avg = addMaxBP/number;
+        sb.append(addMaxBP/number);
         textView2 = findViewById(R.id.text_view2);
         textView2.setText(sb.toString());
     }

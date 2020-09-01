@@ -12,10 +12,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "Bloodpressure.db";
     private static final String _ID = "_id";
     private static final String TABLE_NAME = "_BPtable";
-    private static final String PRIMARY_KEY = "_date";    // 日時。データフォーマットでいけるかな？
+    private static final String COLUMN_DATE = "_date";    // 日時。データフォーマットでいけるかな？
     private static final String COLUMN_MAXBP = "_maxBP"; // 最高血圧
     private static final String COLUMN_MINBP = "_minBP"; // 最低血圧
     private static final String COLUMN_PULSE = "_pulse"; // 脈拍
+
+    // コンストラクタ
+    DatabaseHelper(Context context){
+        super(context,DATABASE_NAME,null,DATABASE_VERSION);
+    }
 
     /*
      SQLでテーブルを作る
@@ -23,21 +28,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + TABLE_NAME + "(" +
-                    _ID + " INTEGER," +
-                    PRIMARY_KEY + " TEXT," +
+                    _ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    COLUMN_DATE + " TEXT," +
                     COLUMN_MAXBP + " INTEGER," +
                     COLUMN_MINBP + " INTEGER," +
                     COLUMN_PULSE + " INTEGER)";
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + TABLE_NAME;
-
-
-
-    // コンストラクタ
-    DatabaseHelper(Context context){
-        super(context,DATABASE_NAME,null,DATABASE_VERSION);
-    }
 
     /*
      SQLiteOpenHelperクラスを継承している。onCreate()とonUpgrade()の2つのオーバーライドがないとコンパエラー
