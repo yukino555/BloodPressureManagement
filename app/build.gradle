@@ -5,7 +5,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "example.com.bloodpressuremanagementuser"
+        applicationId "example.com.bloodpressuremanagement"
         minSdkVersion 24
         targetSdkVersion 29
         versionCode 1
