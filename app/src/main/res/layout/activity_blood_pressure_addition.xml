@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".BloodPressureAdditionActivity">
 
+    <ImageView
+        android:src="@drawable/a531894"
+        android:scaleType="fitXY"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
     <TextView
         android:id="@+id/tvCountingTime"
         android:layout_width="wrap_content"

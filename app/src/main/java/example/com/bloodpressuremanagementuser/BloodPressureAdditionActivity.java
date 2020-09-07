@@ -56,6 +56,7 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
         pulseUnit.setTypeface(customFont);
 
         btEntry = findViewById(R.id.btEntry);
+        btEntry.setTypeface(customFont);
         btEntry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,6 +76,7 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
         });
 
         btNext = findViewById(R.id.btNext);
+        btNext.setTypeface(customFont);
         btNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
