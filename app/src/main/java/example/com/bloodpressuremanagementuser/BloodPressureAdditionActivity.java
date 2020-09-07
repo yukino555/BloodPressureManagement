@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DateFormat;
@@ -37,6 +39,21 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_blood_pressure_addition);
         helper = new DatabaseHelper(BloodPressureAdditionActivity.this);
         db = helper.getWritableDatabase();
+        Typeface customFont = Typeface.createFromAsset(getAssets(), "Ronde-B_square.otf");
+        TextView time = findViewById(R.id.tvCountingTime);
+        time.setTypeface(customFont);
+        TextView upperBP = findViewById(R.id.tvUpperBloodPressure);
+        upperBP.setTypeface(customFont);
+        TextView mmHg1 = findViewById(R.id.tvMmhg1);
+        mmHg1.setTypeface(customFont);
+        TextView lowerBP = findViewById(R.id.tvLowerBloodPressure);
+        lowerBP.setTypeface(customFont);
+        TextView mmHg2 = findViewById(R.id.tvMmhg2);
+        mmHg2.setTypeface(customFont);
+        TextView pulse = findViewById(R.id.tvPulse);
+        pulse.setTypeface(customFont);
+        TextView pulseUnit = findViewById(R.id.tvPulseUnit);
+        pulseUnit.setTypeface(customFont);
 
         btEntry = findViewById(R.id.btEntry);
         btEntry.setOnClickListener(new View.OnClickListener() {

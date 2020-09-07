@@ -15,6 +15,7 @@ public class HomeActivity extends AppCompatActivity {
     Button btShow;
     Button btAvg;
     Button btMaxValue;
+    Button btBack;
     Cursor cursor;
     TextView textView;
     TextView textView2;
@@ -30,6 +31,7 @@ public class HomeActivity extends AppCompatActivity {
         btShow = findViewById(R.id.btShow);
         btAvg = findViewById(R.id.btAvg);
         btMaxValue = findViewById(R.id.btMaxValue);
+        btBack = findViewById(R.id.btBack);
     }
     public void onShow(View view) {
         db = helper.getReadableDatabase();
@@ -130,5 +132,9 @@ public class HomeActivity extends AppCompatActivity {
         sb.append(maxPulse + "\n");
         textView3 = findViewById(R.id.text_view3);
         textView3.setText(sb.toString());
+    }
+
+    public void onBackButtonClick(View view) {
+        finish();
     }
 }
