@@ -43,4 +43,5 @@
     <string name="bt_show">見る</string>
     <string name="bt_avg">平均</string>
     <string name="bt_maxValue">最大値</string>
+    <string name="bt_graph">グラフ</string>
 </resources>
