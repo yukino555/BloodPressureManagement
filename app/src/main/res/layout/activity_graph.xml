@@ -9,7 +9,12 @@
     android:orientation="vertical">
 
     <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/lineChart"
+        android:id="@+id/lineChartMaxBp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lineChartMinBp"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
@@ -20,5 +25,6 @@
         android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
 
 </LinearLayout>

@@ -112,7 +112,6 @@ public class HomeActivity extends AppCompatActivity {
                 null
         );
         cursor.moveToFirst();
-        int minValue = Integer.MIN_VALUE;
         int maxUpperBP = Integer.MIN_VALUE;
         int maxLowerBP = Integer.MIN_VALUE;
         int maxPulse = Integer.MIN_VALUE;
