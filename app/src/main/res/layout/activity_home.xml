@@ -144,6 +144,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="@string/bt_graph"
+        android:onClick="onGraph"
         app:layout_constraintEnd_toStartOf="@+id/btBack"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btShow"

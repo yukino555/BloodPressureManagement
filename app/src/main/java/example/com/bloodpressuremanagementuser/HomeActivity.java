@@ -2,6 +2,7 @@ package example.com.bloodpressuremanagementuser;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -26,7 +27,6 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         helper = new DatabaseHelper(HomeActivity.this);
-        db = helper.getWritableDatabase();
 
         btShow = findViewById(R.id.btShow);
         btAvg = findViewById(R.id.btAvg);
@@ -136,5 +136,10 @@ public class HomeActivity extends AppCompatActivity {
 
     public void onBackButtonClick(View view) {
         finish();
+    }
+
+    public void onGraph(View view) {
+        Intent intent = new Intent(HomeActivity.this, GraphActivity.class);
+        startActivity(intent);
     }
 }
