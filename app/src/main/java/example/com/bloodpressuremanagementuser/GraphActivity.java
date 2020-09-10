@@ -15,6 +15,8 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import java.util.ArrayList;
@@ -24,15 +26,51 @@ public class GraphActivity extends AppCompatActivity {
     DatabaseHelper helper;
     SQLiteDatabase db;
     Cursor cursor;
+    ArrayList<Entry> valuesMaxBp;
+    ArrayList<Entry> valuesMinBp;
+    ArrayList<String> date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
         helper = new DatabaseHelper(GraphActivity.this);
-
         mChart = findViewById(R.id.lineChart);
+        // データベースと接続
+        db = helper.getReadableDatabase();
+        cursor = db.query(
+                "_BPtable",
+                new String[]{"_date", "_maxBP", "_minBP"},
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+        cursor.moveToFirst();
+        valuesMaxBp = new ArrayList<>();
+        valuesMinBp = new ArrayList<>();
+        date        = new ArrayList<>();
+        for (int i = 0; i < cursor.getCount(); i++) {
+            valuesMaxBp.add(new Entry(i, cursor.getInt(1)));
+            valuesMinBp.add(new Entry(i, cursor.getInt(2)));
+            date.add(cursor.getString(0));
+            cursor.moveToNext();
+        }
+        cursor.close();
 
+        //  グラフViewの初期化
+        initChart();
+        // グラフに値をセットする
+        setData();
+        // データをアニメーションで出す。ミリ秒.数値が大きいと遅い
+        mChart.animateX(1000);
+
+        // dont forget to refresh the drawing
+        // mChart.invalidate();
+    }
+
+    private void initChart(){
         // グラフ説明テキストを表示するか
         mChart.getDescription().setEnabled(true);
         // グラフ説明テキスト「血圧マネジャー」
@@ -47,75 +85,49 @@ public class GraphActivity extends AppCompatActivity {
         mChart.setBackgroundColor(Color.WHITE);
 
         // ｘ軸の設定
-        XAxis xMaxBp = mChart.getXAxis();
+        XAxis xAxis = mChart.getXAxis();
         // ｘ軸最大値最小値
-        xMaxBp.setAxisMaximum(30f);
-        xMaxBp.setAxisMinimum(0f);
+        // 以下だと0~10番目が出力される(11個)
+        // 書かないと、登録したデータ分表示される
+//        xAxis.setAxisMinimum(0f);
+//        xAxis.setAxisMaximum(10f);
+        // データベースに登録した年月日時分秒をｘ軸に設定
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(date));
+
         // ｘ軸を破線にする(Dashed Line)
-        xMaxBp.enableGridDashedLine(10f, 10f, 0f);
-        xMaxBp.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.enableGridDashedLine(10f, 10f, 0f);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 
         // y軸の設定
-        YAxis yMaxBp = mChart.getAxisLeft();
+        YAxis yAxis = mChart.getAxisLeft();
         // Y軸最大最小設定
-        yMaxBp.setAxisMaximum(150f);
-        yMaxBp.setAxisMinimum(50f);
+        yAxis.setAxisMaximum(150f);
+        yAxis.setAxisMinimum(50f);
         // y軸を破線にする
-        yMaxBp.enableGridDashedLine(10f, 10f, 0f);
-        yMaxBp.setDrawZeroLine(true);
+        yAxis.enableGridDashedLine(10f, 10f, 0f);
+        yAxis.setDrawZeroLine(true);
 
         // 右側の目盛り。不要ならfalse
         mChart.getAxisRight().setEnabled(false);
-
-        // グラフに値をセットする
-        setData();
-        // データをアニメーションで出す。ミリ秒.数値が大きいと遅い
-        mChart.animateX(1000);
-
-        // dont forget to refresh the drawing
-        // mChart.invalidate();
     }
 
     private void setData() {
-        db = helper.getReadableDatabase();
-        cursor = db.query(
-                "_BPtable",
-                new String[]{"_date", "_maxBP", "_minBP"},
-                null,
-                null,
-                null,
-                null,
-                null
-        );
-        cursor.moveToFirst();
-        ArrayList<Entry> valuesMaxBp = new ArrayList<>();
-        ArrayList<Entry> valuesMinBp = new ArrayList<>();
-        for (int i = 0; i < cursor.getCount(); i++) {
-            valuesMaxBp.add(new Entry(i, cursor.getInt(1)));
-            valuesMinBp.add(new Entry(i, cursor.getInt(2)));
-            cursor.moveToNext();
-        }
-        cursor.close();
+
 
         LineDataSet maxBpLine;   // 最高血圧
         LineDataSet minBpLine;   //　最低血圧
 
         maxBpLine = new LineDataSet(valuesMaxBp, "最高血圧");
-        maxBpLine.setDrawIcons(false);  // true false の違いが判らない
-        maxBpLine.setColor(Color.RED);  // 線の色
-        maxBpLine.setCircleColor(Color.RED);  // データのドットの色
-        maxBpLine.setLineWidth(5f);  // 線の太さ 1f~
-        maxBpLine.setCircleRadius(5f);  // データドットの大きさ
-        maxBpLine.setDrawCircleHole(false);  // データドットを塗りつぶす→false 塗りつぶさない→true
-        maxBpLine.setValueTextSize(10f);  // データの値を記す。0fで記載なし。floatだから小数点がつく
-        maxBpLine.setDrawFilled(true);
-        maxBpLine.setFormLineWidth(1f);
-        maxBpLine.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
-        maxBpLine.setFormSize(15.f);
-        maxBpLine.setFillColor(Color.RED);
+        maxBpLine.setColor(Color.RED);          // 線の色
+        maxBpLine.setCircleColor(Color.RED);    // 座標の色
+        maxBpLine.setLineWidth(5f);             // 線の太さ 1f~
+        maxBpLine.setCircleRadius(5f);          // 座標の大きさ
+        maxBpLine.setDrawCircleHole(false);     // 座標を塗りつぶす→false 塗りつぶさない→true
+        maxBpLine.setValueTextSize(10f);        // データの値を記す。0fで記載なし。floatだから小数点がつく
+        maxBpLine.setDrawFilled(true);          // 線の下を塗りつぶすか否か
+        maxBpLine.setFillColor(Color.RED);      //　塗りつぶしたフィールドの色
 
         minBpLine = new LineDataSet(valuesMinBp, "最低血圧");
-        minBpLine.setDrawIcons(false);
         minBpLine.setColor(Color.BLUE);
         minBpLine.setCircleColor(Color.BLUE);
         minBpLine.setLineWidth(5f);
@@ -123,12 +135,9 @@ public class GraphActivity extends AppCompatActivity {
         minBpLine.setDrawCircleHole(false);
         minBpLine.setValueTextSize(10f);
         minBpLine.setDrawFilled(true);
-        minBpLine.setFormLineWidth(1f);
-        minBpLine.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
-        minBpLine.setFormSize(15.f);
         minBpLine.setFillColor(Color.BLUE);
 
-        // ここがchartにラインを作っている
+        // chartにラインをset
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
         dataSets.add(maxBpLine);
         dataSets.add(minBpLine);
@@ -140,6 +149,7 @@ public class GraphActivity extends AppCompatActivity {
         finish();
     }
 }
+
 
 //    private void setDataMinBp() {
 //        db = helper.getReadableDatabase();
