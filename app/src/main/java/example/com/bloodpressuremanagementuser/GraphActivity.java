@@ -33,32 +33,42 @@ public class GraphActivity extends AppCompatActivity {
 
         mChart = findViewById(R.id.lineChart);
 
-        // Grid背景色
-        mChart.setDrawGridBackground(false);
-        // no description text
-        mChart.getDescription().setText("血圧");
+        // グラフ説明テキストを表示するか
+        mChart.getDescription().setEnabled(true);
+        // グラフ説明テキスト「血圧マネジャー」
+        mChart.getDescription().setText(getResources().getString(R.string.app_name));
+        // グラフ説明テキストの文字色設定
+//        mChart.getDescription().setTextColor(Color.BLACK);
+        // グラフ説明テキストの文字サイズ設定
+//        mChart.getDescription().setTextSize(10f);
+        // グラフ説明テキストの表示位置設定
+//        mChart.getDescription().setPosition(0, 0);
+        // グラフの背景色
+        mChart.setBackgroundColor(Color.WHITE);
 
-        // Grid縦軸を破線　xAxis横軸
+        // ｘ軸の設定
         XAxis xMaxBp = mChart.getXAxis();
+        // ｘ軸最大値最小値
         xMaxBp.setAxisMaximum(30f);
         xMaxBp.setAxisMinimum(0f);
+        // ｘ軸を破線にする
         xMaxBp.enableGridDashedLine(10f, 10f, 0f);
         xMaxBp.setPosition(XAxis.XAxisPosition.BOTTOM);
 
-        // yAxis縦軸
+        // y軸の設定
         // 最高血圧
         YAxis yMaxBp = mChart.getAxisLeft();
         // Y軸最大最小設定
         yMaxBp.setAxisMaximum(150f);
         yMaxBp.setAxisMinimum(50f);
-        // Grid横軸を破線(Dashed Line)
+        // y軸を破線にする(Dashed Line)
         yMaxBp.enableGridDashedLine(10f, 10f, 0f);
         yMaxBp.setDrawZeroLine(true);
 
         // 右側の目盛り.要らないならfalse
         mChart.getAxisRight().setEnabled(false);
 
-        // add data
+        // グラフに値をセットする
         setDataMaxBp();
 //        setDataMinBp();
         // データをアニメーションで出す。ミリ秒.数値が大きいと遅い
@@ -84,25 +94,26 @@ public class GraphActivity extends AppCompatActivity {
         ArrayList<Entry> valuesMaxBp = new ArrayList<>();
         ArrayList<Entry> valuesMinBp = new ArrayList<>();
         for (int i = 0; i < cursor.getCount(); i++) {
-            valuesMaxBp.add(new Entry(i, cursor.getInt(1), null, null));
-            valuesMinBp.add(new Entry(i, cursor.getInt(2), null, null));
+            valuesMaxBp.add(new Entry(i, cursor.getInt(1)));
+            valuesMinBp.add(new Entry(i, cursor.getInt(2)));
             cursor.moveToNext();
         }
         cursor.close();
+        // 最高血圧
+        LineDataSet set1 = new LineDataSet(valuesMaxBp, getResources().getString(R.string.tv_upperBloodPressure));
+        //　最低血圧
+        LineDataSet set2 = new LineDataSet(valuesMinBp, getResources().getString(R.string.tv_lowerBloodPressure));
 
-        LineDataSet set1; // 最高血圧
-        LineDataSet set2; //　最低血圧
-
-        if (mChart.getData() != null &&
-                mChart.getData().getDataSetCount() > 0) {
-
-            set1 = (LineDataSet) mChart.getData().getDataSetByIndex(0);
-            set2 = (LineDataSet) mChart.getData().getDataSetByIndex(0);
-            set1.setValues(valuesMaxBp);
-            set2.setValues(valuesMinBp);
-            mChart.getData().notifyDataChanged();
-            mChart.notifyDataSetChanged();
-        } else {
+//        if (mChart.getData() != null &&
+//                mChart.getData().getDataSetCount() > 0) {
+//
+////            set1 = (LineDataSet) mChart.getData().getDataSetByIndex(0);
+////            set2 = (LineDataSet) mChart.getData().getDataSetByIndex(1);
+//            set1.setValues(valuesMaxBp);
+//            set2.setValues(valuesMinBp);
+//            mChart.getData().notifyDataChanged();
+//            mChart.notifyDataSetChanged();
+//        } else {
             // create a dataset and give it a type
             set1 = new LineDataSet(valuesMaxBp, "最高血圧");
 
@@ -120,14 +131,13 @@ public class GraphActivity extends AppCompatActivity {
 
             set1.setFillColor(Color.RED);
 
-            ArrayList<ILineDataSet> dataSetsMaxBp = new ArrayList<>();
-            dataSetsMaxBp.add(set1); // add the datasets
-
-            // create a data object with the datasets
-            LineData lineDataMaxBp = new LineData(dataSetsMaxBp);
-
-            // set data
-            mChart.setData(lineDataMaxBp);
+//            ArrayList<ILineDataSet> dataSetsMaxBp = new ArrayList<>();
+//            dataSetsMaxBp.add(set1); // add the datasets
+//
+//            // create a data object with the datasets
+//            LineData lineDataMaxBp = new LineData(dataSetsMaxBp);
+//            // set data
+//            mChart.setData(lineDataMaxBp);
 
             set2 = new LineDataSet(valuesMinBp, "最低血圧");
             set2.setDrawIcons(false);
@@ -144,11 +154,13 @@ public class GraphActivity extends AppCompatActivity {
 
             set2.setFillColor(Color.BLUE);
 
-            ArrayList<ILineDataSet> dataSetsMinBp = new ArrayList<>();
-            dataSetsMinBp.add(set2);
-            LineData lineDataMinBp = new LineData(dataSetsMinBp);
-            mChart.setData(lineDataMinBp);
-        }
+            ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+            dataSets.add(set1);
+            dataSets.add(set2);
+            LineData lineData = new LineData(dataSets);
+            mChart.setData(lineData);
+//        }
+//        return lineDataMinBP();
     }
 
     public void onBack(View view) {
