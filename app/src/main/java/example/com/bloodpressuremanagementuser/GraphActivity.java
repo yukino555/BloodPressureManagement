@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.os.Bundle;
+import android.view.View;
+
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -71,7 +73,7 @@ public class GraphActivity extends AppCompatActivity {
         db = helper.getReadableDatabase();
         cursor = db.query(
                 "_BPtable",
-                new String[]{"_date", "_maxBP"},
+                new String[]{"_date", "_maxBP", "_minBP"},
                 null,
                 null,
                 null,
@@ -80,20 +82,24 @@ public class GraphActivity extends AppCompatActivity {
         );
         cursor.moveToFirst();
         ArrayList<Entry> valuesMaxBp = new ArrayList<>();
+        ArrayList<Entry> valuesMinBp = new ArrayList<>();
         for (int i = 0; i < cursor.getCount(); i++) {
             valuesMaxBp.add(new Entry(i, cursor.getInt(1), null, null));
+            valuesMinBp.add(new Entry(i, cursor.getInt(2), null, null));
             cursor.moveToNext();
         }
         cursor.close();
 
-        // 最高血圧の線
-        LineDataSet set1;
+        LineDataSet set1; // 最高血圧
+        LineDataSet set2; //　最低血圧
 
         if (mChart.getData() != null &&
                 mChart.getData().getDataSetCount() > 0) {
 
             set1 = (LineDataSet) mChart.getData().getDataSetByIndex(0);
+            set2 = (LineDataSet) mChart.getData().getDataSetByIndex(0);
             set1.setValues(valuesMaxBp);
+            set2.setValues(valuesMinBp);
             mChart.getData().notifyDataChanged();
             mChart.notifyDataSetChanged();
         } else {
@@ -122,7 +128,31 @@ public class GraphActivity extends AppCompatActivity {
 
             // set data
             mChart.setData(lineDataMaxBp);
+
+            set2 = new LineDataSet(valuesMinBp, "最低血圧");
+            set2.setDrawIcons(false);
+            set2.setColor(Color.BLUE);
+            set2.setCircleColor(Color.BLUE);
+            set2.setLineWidth(5f);
+            set2.setCircleHoleRadius(5f);
+            set2.setDrawCircleHole(false);
+            set2.setValueTextSize(10f);
+            set2.setDrawFilled(true);
+            set2.setFormLineWidth(1f);
+            set2.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
+            set2.setFormSize(15.f);
+
+            set2.setFillColor(Color.BLUE);
+
+            ArrayList<ILineDataSet> dataSetsMinBp = new ArrayList<>();
+            dataSetsMinBp.add(set2);
+            LineData lineDataMinBp = new LineData(dataSetsMinBp);
+            mChart.setData(lineDataMinBp);
         }
+    }
+
+    public void onBack(View view) {
+        finish();
     }
 }
 
