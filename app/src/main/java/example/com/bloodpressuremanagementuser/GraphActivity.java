@@ -51,35 +51,32 @@ public class GraphActivity extends AppCompatActivity {
         // ｘ軸最大値最小値
         xMaxBp.setAxisMaximum(30f);
         xMaxBp.setAxisMinimum(0f);
-        // ｘ軸を破線にする
+        // ｘ軸を破線にする(Dashed Line)
         xMaxBp.enableGridDashedLine(10f, 10f, 0f);
         xMaxBp.setPosition(XAxis.XAxisPosition.BOTTOM);
 
         // y軸の設定
-        // 最高血圧
         YAxis yMaxBp = mChart.getAxisLeft();
         // Y軸最大最小設定
         yMaxBp.setAxisMaximum(150f);
         yMaxBp.setAxisMinimum(50f);
-        // y軸を破線にする(Dashed Line)
+        // y軸を破線にする
         yMaxBp.enableGridDashedLine(10f, 10f, 0f);
         yMaxBp.setDrawZeroLine(true);
 
-        // 右側の目盛り.要らないならfalse
+        // 右側の目盛り。不要ならfalse
         mChart.getAxisRight().setEnabled(false);
 
         // グラフに値をセットする
-        setDataMaxBp();
-//        setDataMinBp();
+        setData();
         // データをアニメーションで出す。ミリ秒.数値が大きいと遅い
         mChart.animateX(1000);
-        //mChart.invalidate();
 
         // dont forget to refresh the drawing
         // mChart.invalidate();
     }
 
-    private void setDataMaxBp() {
+    private void setData() {
         db = helper.getReadableDatabase();
         cursor = db.query(
                 "_BPtable",
@@ -99,68 +96,44 @@ public class GraphActivity extends AppCompatActivity {
             cursor.moveToNext();
         }
         cursor.close();
-        // 最高血圧
-        LineDataSet set1 = new LineDataSet(valuesMaxBp, getResources().getString(R.string.tv_upperBloodPressure));
-        //　最低血圧
-        LineDataSet set2 = new LineDataSet(valuesMinBp, getResources().getString(R.string.tv_lowerBloodPressure));
 
-//        if (mChart.getData() != null &&
-//                mChart.getData().getDataSetCount() > 0) {
-//
-////            set1 = (LineDataSet) mChart.getData().getDataSetByIndex(0);
-////            set2 = (LineDataSet) mChart.getData().getDataSetByIndex(1);
-//            set1.setValues(valuesMaxBp);
-//            set2.setValues(valuesMinBp);
-//            mChart.getData().notifyDataChanged();
-//            mChart.notifyDataSetChanged();
-//        } else {
-            // create a dataset and give it a type
-            set1 = new LineDataSet(valuesMaxBp, "最高血圧");
+        LineDataSet maxBpLine;   // 最高血圧
+        LineDataSet minBpLine;   //　最低血圧
 
-            set1.setDrawIcons(false);  // true false の違いが判らない
-            set1.setColor(Color.RED);  // 線の色
-            set1.setCircleColor(Color.RED);  // データのドットの色
-            set1.setLineWidth(5f);  // 線の太さ 1f~
-            set1.setCircleRadius(5f);  // データドットの大きさ
-            set1.setDrawCircleHole(false);  // データドットを塗りつぶす→false 塗りつぶさない→true
-            set1.setValueTextSize(10f);  // データの値を記す。0fで記載なし。floatだから小数点がつく
-            set1.setDrawFilled(true);
-            set1.setFormLineWidth(1f);
-            set1.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
-            set1.setFormSize(15.f);
+        maxBpLine = new LineDataSet(valuesMaxBp, "最高血圧");
+        maxBpLine.setDrawIcons(false);  // true false の違いが判らない
+        maxBpLine.setColor(Color.RED);  // 線の色
+        maxBpLine.setCircleColor(Color.RED);  // データのドットの色
+        maxBpLine.setLineWidth(5f);  // 線の太さ 1f~
+        maxBpLine.setCircleRadius(5f);  // データドットの大きさ
+        maxBpLine.setDrawCircleHole(false);  // データドットを塗りつぶす→false 塗りつぶさない→true
+        maxBpLine.setValueTextSize(10f);  // データの値を記す。0fで記載なし。floatだから小数点がつく
+        maxBpLine.setDrawFilled(true);
+        maxBpLine.setFormLineWidth(1f);
+        maxBpLine.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
+        maxBpLine.setFormSize(15.f);
+        maxBpLine.setFillColor(Color.RED);
 
-            set1.setFillColor(Color.RED);
+        minBpLine = new LineDataSet(valuesMinBp, "最低血圧");
+        minBpLine.setDrawIcons(false);
+        minBpLine.setColor(Color.BLUE);
+        minBpLine.setCircleColor(Color.BLUE);
+        minBpLine.setLineWidth(5f);
+        minBpLine.setCircleHoleRadius(5f);
+        minBpLine.setDrawCircleHole(false);
+        minBpLine.setValueTextSize(10f);
+        minBpLine.setDrawFilled(true);
+        minBpLine.setFormLineWidth(1f);
+        minBpLine.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
+        minBpLine.setFormSize(15.f);
+        minBpLine.setFillColor(Color.BLUE);
 
-//            ArrayList<ILineDataSet> dataSetsMaxBp = new ArrayList<>();
-//            dataSetsMaxBp.add(set1); // add the datasets
-//
-//            // create a data object with the datasets
-//            LineData lineDataMaxBp = new LineData(dataSetsMaxBp);
-//            // set data
-//            mChart.setData(lineDataMaxBp);
-
-            set2 = new LineDataSet(valuesMinBp, "最低血圧");
-            set2.setDrawIcons(false);
-            set2.setColor(Color.BLUE);
-            set2.setCircleColor(Color.BLUE);
-            set2.setLineWidth(5f);
-            set2.setCircleHoleRadius(5f);
-            set2.setDrawCircleHole(false);
-            set2.setValueTextSize(10f);
-            set2.setDrawFilled(true);
-            set2.setFormLineWidth(1f);
-            set2.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
-            set2.setFormSize(15.f);
-
-            set2.setFillColor(Color.BLUE);
-
-            ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-            dataSets.add(set1);
-            dataSets.add(set2);
-            LineData lineData = new LineData(dataSets);
-            mChart.setData(lineData);
-//        }
-//        return lineDataMinBP();
+        // ここがchartにラインを作っている
+        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+        dataSets.add(maxBpLine);
+        dataSets.add(minBpLine);
+        LineData lineData = new LineData(dataSets);
+        mChart.setData(lineData);
     }
 
     public void onBack(View view) {

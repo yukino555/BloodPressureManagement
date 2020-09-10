@@ -12,18 +12,7 @@
         android:id="@+id/lineChart"
         android:layout_width="match_parent"
         android:layout_height="550dp">
-
-
-
     </com.github.mikephil.charting.charts.LineChart>
-
-<!--    <TextView-->
-<!--        android:text="@string/app_name"-->
-<!--        android:textSize="20sp"-->
-<!--        android:gravity="center"-->
-<!--        android:layout_margin="5dp"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content" />-->
 
     <Button
         android:id="@+id/btBack"
