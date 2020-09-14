@@ -5,20 +5,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.graphics.DashPathEffect;
 import android.os.Bundle;
 import android.view.View;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class GraphActivity extends AppCompatActivity {
@@ -29,6 +29,7 @@ public class GraphActivity extends AppCompatActivity {
     ArrayList<Entry> valuesMaxBp;
     ArrayList<Entry> valuesMinBp;
     ArrayList<String> date;
+    String labels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +112,8 @@ public class GraphActivity extends AppCompatActivity {
         mChart.getAxisRight().setEnabled(false);
     }
 
+
+
     private void setData() {
 
 
@@ -151,62 +154,3 @@ public class GraphActivity extends AppCompatActivity {
 }
 
 
-//    private void setDataMinBp() {
-//        db = helper.getReadableDatabase();
-//        cursor = db.query(
-//                "_BPtable",
-//                new String[]{"_date", "_minBP"},
-//                null,
-//                null,
-//                null,
-//                null,
-//                null
-//                );
-//        cursor.moveToFirst();
-//        ArrayList<Entry> valuesMinBp = new ArrayList<>();
-//        for (int i = 0; i < cursor.getCount(); i++) {
-//            valuesMinBp.add(new Entry(i, cursor.getInt(1), null, null));
-//            cursor.moveToNext();
-//        }
-//        cursor.close();
-//
-//        // 最低血圧の線
-//        LineDataSet set2;
-//
-//        if (mChart.getData() != null &&
-//                mChart.getData().getDataSetCount() > 0) {
-//
-//            set2 = (LineDataSet) mChart.getData().getDataSetByIndex(0);
-//            set2.setValues(valuesMinBp);
-//            mChart.getData().notifyDataChanged();
-//            mChart.notifyDataSetChanged();
-//        } else {
-//            // create a dataset and give it a type
-//            set2 = new LineDataSet(valuesMinBp, "最低血圧");
-//
-//            set2.setDrawIcons(false);  // true false の違いが判らない
-//            set2.setColor(Color.BLUE);  // 線の色
-//            set2.setCircleColor(Color.BLUE);  // データのドットの色
-//            set2.setLineWidth(5f);  // 線の太さ 1f~
-//            set2.setCircleRadius(5f);  // データドットの大きさ
-//            set2.setDrawCircleHole(false);  // データドットを塗りつぶす→false 塗りつぶさない→true
-//            set2.setValueTextSize(10f);  // データの値を記す。0fで記載なし。floatだから小数点がつく
-//            set2.setDrawFilled(true);
-//            set2.setFormLineWidth(1f);
-//            set2.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
-//            set2.setFormSize(15.f);
-//
-//            set2.setFillColor(Color.BLUE);
-//
-//            ArrayList<ILineDataSet> dataSetsMinBp = new ArrayList<>();
-//            dataSetsMinBp.add(set2); // add the datasets
-//
-//            // create a data object with the datasets
-//            LineData lineDataMinBp = new LineData(dataSetsMinBp);
-//
-//            // set data
-//            mChart.setData(lineDataMinBp);
-//        }
-//
-//
-//    }
