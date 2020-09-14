@@ -88,27 +88,14 @@ public class GraphActivity extends AppCompatActivity {
 
         // ｘ軸の設定
         XAxis xAxis = mChart.getXAxis();
+        xAxis.setLabelRotationAngle(45);
         // ｘ軸最大値最小値
         // 以下だと0~10番目が出力される(11個)
         // 書かないと、登録したデータ分表示される
 //        xAxis.setAxisMinimum(0f);
 //        xAxis.setAxisMaximum(10f);
         // データベースに登録した年月日時分秒をｘ軸に設定
-        // String型で保存したデータをdate型に書き直して SimpleDateFormat して、、
-        ArrayList<String> labels = new ArrayList<>();
-        for(int j = 0; j < date.size(); j++){
-            try {
-                String strDate = date.get(j);
-                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-                Date entryDate = dateFormat.parse(strDate);
-                DateFormat dt = new SimpleDateFormat("MM/dd");
-                String str = dt.format(entryDate);
-                labels.add(str);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(labels));
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(getDate()));
 
         // ｘ軸を破線にする(Dashed Line)
         xAxis.enableGridDashedLine(10f, 10f, 0f);
@@ -127,7 +114,23 @@ public class GraphActivity extends AppCompatActivity {
         mChart.getAxisRight().setEnabled(false);
     }
 
-//    private  ArrayList<String> getDate(){
+    // String型で保存したデータをdate型に書き直して SimpleDateFormat して、、
+    private  ArrayList<String> getDate() {
+        ArrayList<String> labels = new ArrayList<>();
+        for (int j = 0; j < date.size(); j++) {
+            try {
+                String strDate = date.get(j);
+                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+                Date entryDate = dateFormat.parse(strDate);
+                DateFormat dt = new SimpleDateFormat("MM/dd HH:mm");
+                String str = dt.format(entryDate);
+                labels.add(str);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 //        ArrayList<String> labels = new ArrayList<>();
 //        for(int j = 0; j < date.size(); j++){
 //            try {
