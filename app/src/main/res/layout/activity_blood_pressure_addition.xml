@@ -38,6 +38,8 @@
 
     <EditText
         android:id="@+id/etUpperBloodPressure"
+        android:hint="@string/example1"
+        android:autofillHints="@string/example1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="6"
@@ -68,6 +70,8 @@
 
     <EditText
         android:id="@+id/etLowerBloodPressure"
+        android:hint="@string/example2"
+        android:autofillHints="@string/example2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="6"
@@ -112,6 +116,8 @@
 
     <EditText
         android:id="@+id/etPulse"
+        android:hint="@string/example3"
+        android:autofillHints="@string/example3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="6"

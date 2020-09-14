@@ -132,21 +132,6 @@ public class GraphActivity extends AppCompatActivity {
         return labels;
     }
 
-//        ArrayList<String> labels = new ArrayList<>();
-//        for(int j = 0; j < date.size(); j++){
-//            try {
-//                String strDate = date.get(j);
-//                SimpleDateFormat sdFormat = new SimpleDateFormat("MM/dd");
-//                Date ddd = sdFormat.parse(date.get(j));
-//                String str = new SimpleDateFormat("MM/dd").format(ddd);
-//                labels.add(str);
-//            } catch (ParseException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        return labels;
-//    }
-
     private void setData() {
 
 

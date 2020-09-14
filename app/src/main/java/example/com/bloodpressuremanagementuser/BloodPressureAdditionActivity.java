@@ -74,7 +74,6 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
                 getMaxBP.setText("");
                 getMinBP.setText("");
                 getPulse.setText("");
-//                insertData(db,maxBP,minBP);
             }
         });
 

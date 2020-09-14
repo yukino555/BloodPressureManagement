@@ -45,4 +45,7 @@
     <string name="bt_maxValue">最大値</string>
     <string name="bt_graph">グラフ</string>
     <string name="dash">縦軸</string>
+    <string name="example1">例：120</string>
+    <string name="example2">例：80</string>
+    <string name="example3">例：75</string>
 </resources>
