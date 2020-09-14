@@ -94,19 +94,15 @@ public class GraphActivity extends AppCompatActivity {
 //        xAxis.setAxisMinimum(0f);
 //        xAxis.setAxisMaximum(10f);
         // データベースに登録した年月日時分秒をｘ軸に設定
-//        ArrayList<String> labels = new ArrayList<>();
-//        for(int i = 0; i < date.size(); i++){
-//            SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd");
-//            String strDate = dateFormat.format(date.get(i));
-//            labels.add(strDate);
-//        }
+        // String型で保存したデータをdate型に書き直して SimpleDateFormat して、、
         ArrayList<String> labels = new ArrayList<>();
         for(int j = 0; j < date.size(); j++){
             try {
                 String strDate = date.get(j);
-                SimpleDateFormat sdFormat = new SimpleDateFormat("MM/dd");
-                Date ddd = sdFormat.parse(strDate);
-                String str = new SimpleDateFormat("MM/dd").format(ddd);
+                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+                Date entryDate = dateFormat.parse(strDate);
+                DateFormat dt = new SimpleDateFormat("MM/dd");
+                String str = dt.format(entryDate);
                 labels.add(str);
             } catch (ParseException e) {
                 e.printStackTrace();
