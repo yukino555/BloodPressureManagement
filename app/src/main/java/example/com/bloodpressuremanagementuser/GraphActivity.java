@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -18,8 +17,11 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class GraphActivity extends AppCompatActivity {
     LineChart mChart;
@@ -29,7 +31,6 @@ public class GraphActivity extends AppCompatActivity {
     ArrayList<Entry> valuesMaxBp;
     ArrayList<Entry> valuesMinBp;
     ArrayList<String> date;
-    String labels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +94,25 @@ public class GraphActivity extends AppCompatActivity {
 //        xAxis.setAxisMinimum(0f);
 //        xAxis.setAxisMaximum(10f);
         // データベースに登録した年月日時分秒をｘ軸に設定
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(date));
+//        ArrayList<String> labels = new ArrayList<>();
+//        for(int i = 0; i < date.size(); i++){
+//            SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd");
+//            String strDate = dateFormat.format(date.get(i));
+//            labels.add(strDate);
+//        }
+        ArrayList<String> labels = new ArrayList<>();
+        for(int j = 0; j < date.size(); j++){
+            try {
+                String strDate = date.get(j);
+                SimpleDateFormat sdFormat = new SimpleDateFormat("MM/dd");
+                Date ddd = sdFormat.parse(strDate);
+                String str = new SimpleDateFormat("MM/dd").format(ddd);
+                labels.add(str);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(labels));
 
         // ｘ軸を破線にする(Dashed Line)
         xAxis.enableGridDashedLine(10f, 10f, 0f);
@@ -112,7 +131,21 @@ public class GraphActivity extends AppCompatActivity {
         mChart.getAxisRight().setEnabled(false);
     }
 
-
+//    private  ArrayList<String> getDate(){
+//        ArrayList<String> labels = new ArrayList<>();
+//        for(int j = 0; j < date.size(); j++){
+//            try {
+//                String strDate = date.get(j);
+//                SimpleDateFormat sdFormat = new SimpleDateFormat("MM/dd");
+//                Date ddd = sdFormat.parse(date.get(j));
+//                String str = new SimpleDateFormat("MM/dd").format(ddd);
+//                labels.add(str);
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        return labels;
+//    }
 
     private void setData() {
 
@@ -152,5 +185,6 @@ public class GraphActivity extends AppCompatActivity {
         finish();
     }
 }
+
 
 
