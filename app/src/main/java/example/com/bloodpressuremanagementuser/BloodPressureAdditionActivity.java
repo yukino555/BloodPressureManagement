@@ -71,6 +71,9 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
                 Toast toast = Toast.makeText(BloodPressureAdditionActivity.this, "登録しました", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
+                getMaxBP.setText("");
+                getMinBP.setText("");
+                getPulse.setText("");
 //                insertData(db,maxBP,minBP);
             }
         });

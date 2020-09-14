@@ -129,6 +129,7 @@ public class GraphActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+        return labels;
     }
 
 //        ArrayList<String> labels = new ArrayList<>();
