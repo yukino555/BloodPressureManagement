@@ -2,14 +2,11 @@ package example.com.bloodpressuremanagementuser;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -21,7 +18,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class BloodPressureAdditionActivity extends AppCompatActivity implements TextWatcher{
+public class BloodPressureAdditionActivity extends AppCompatActivity {
     EditText getMaxBP;
     EditText getMinBP;
     EditText getPulse;
@@ -73,7 +70,6 @@ public class BloodPressureAdditionActivity extends AppCompatActivity implements 
                 getPulse = findViewById(R.id.etPulse);
                 final int pulseInt = Integer.parseInt(getPulse.getText().toString());
 
-
                 String errorMsg = "この値は入力できません";
                 if(!(80 <= maxBP && maxBP <= 180)){
                     getMaxBP.setError(errorMsg);
@@ -107,16 +103,7 @@ public class BloodPressureAdditionActivity extends AppCompatActivity implements 
             }
         });
     }
-//} catch (Exception e){
-//        if(!(80 <= maxBP && maxBP <= 180)){
-//        getMaxBP.setError("この値は入力できません");
-//        }
-//        if(!(50 <= minBP && minBP <= 140)){
-//        getMinBP.setError("この値は入力できません");
-//        }
-//        if(!(40 <= pulse && pulse <= 120)){
-//        getPulse.setError("この値は入力できません");
-//        }
+
     public void insertData(SQLiteDatabase db, int maxBP, int minBP, int pulse) {
         ContentValues values = new ContentValues();
         try {
@@ -127,22 +114,7 @@ public class BloodPressureAdditionActivity extends AppCompatActivity implements 
             db.insert("_BPtable", null, values);
         } finally {
             db.close();
-
         }
-    }
-
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-    }
-
-    @Override
-    public void afterTextChanged(Editable s) {
-
     }
 }
 
