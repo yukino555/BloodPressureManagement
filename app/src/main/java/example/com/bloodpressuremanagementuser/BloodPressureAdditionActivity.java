@@ -2,11 +2,14 @@ package example.com.bloodpressuremanagementuser;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -18,7 +21,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class BloodPressureAdditionActivity extends AppCompatActivity {
+public class BloodPressureAdditionActivity extends AppCompatActivity implements TextWatcher{
     EditText getMaxBP;
     EditText getMinBP;
     EditText getPulse;
@@ -39,8 +42,10 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_blood_pressure_addition);
         helper = new DatabaseHelper(BloodPressureAdditionActivity.this);
         db = helper.getWritableDatabase();
+        // カスタムフォントの処理
         Typeface customFont = Typeface.createFromAsset(getAssets(), "Ronde-B_square.otf");
         TextView time = findViewById(R.id.tvCountingTime);
+        // textviewのidとカスタムフォントを繫ぐ
         time.setTypeface(customFont);
         TextView upperBP = findViewById(R.id.tvUpperBloodPressure);
         upperBP.setTypeface(customFont);
@@ -55,6 +60,7 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
         TextView pulseUnit = findViewById(R.id.tvPulseUnit);
         pulseUnit.setTypeface(customFont);
 
+
         btEntry = findViewById(R.id.btEntry);
         btEntry.setTypeface(customFont);
         btEntry.setOnClickListener(new View.OnClickListener() {
@@ -65,15 +71,29 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
                 getMinBP = findViewById(R.id.etLowerBloodPressure);
                 final int minBP = Integer.parseInt(getMinBP.getText().toString());
                 getPulse = findViewById(R.id.etPulse);
-                final int pulse = Integer.parseInt(getPulse.getText().toString());
+                final int pulseInt = Integer.parseInt(getPulse.getText().toString());
 
-                insertData(db, maxBP, minBP, pulse);  // データベースに値を登録するメソッド
+
+                String errorMsg = "この値は入力できません";
+                if(!(80 <= maxBP && maxBP <= 180)){
+                    getMaxBP.setError(errorMsg);
+                    return;
+                } else if(!(50 <= minBP && minBP <= 140)){
+                    getMinBP.setError(errorMsg);
+                    return;
+                } else if(!(40 <= pulseInt && pulseInt <= 120)){
+                    getPulse.setError(errorMsg);
+                    return;
+                }
+                // データベースに値を登録するメソッド
+                insertData(db, maxBP, minBP, pulseInt);
+                // 登録に成功したらトーストがでる
                 Toast toast = Toast.makeText(BloodPressureAdditionActivity.this, "登録しました", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
-                getMaxBP.setText("");
-                getMinBP.setText("");
-                getPulse.setText("");
+//                getMaxBP.setText("");
+//                getMinBP.setText("");
+//                getPulse.setText("");
             }
         });
 
@@ -87,7 +107,16 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
             }
         });
     }
-
+//} catch (Exception e){
+//        if(!(80 <= maxBP && maxBP <= 180)){
+//        getMaxBP.setError("この値は入力できません");
+//        }
+//        if(!(50 <= minBP && minBP <= 140)){
+//        getMinBP.setError("この値は入力できません");
+//        }
+//        if(!(40 <= pulse && pulse <= 120)){
+//        getPulse.setError("この値は入力できません");
+//        }
     public void insertData(SQLiteDatabase db, int maxBP, int minBP, int pulse) {
         ContentValues values = new ContentValues();
         try {
@@ -101,44 +130,22 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
 
         }
     }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+    }
 }
-//    public void insertData(SQLiteDatabase db, int maxBP, int minBP) {
-//        ContentValues values = new ContentValues();
-//        try {
-//            values.put("_date", getNowDate());
-//            values.put("_maxBP", maxBP);
-//            values.put("_minBP", minBP);
-//            db.insert("_BPtable", null, values);
-//        } finally {
-//            db.close();
-//        }
-//    }
-//    public void readData(){
-//        db = helper.getReadableDatabase();
-//        Cursor cursor = db.query(
-//                "_BPtable",
-//                new String[] {"_date", "_maxBP", "_minBP", "_pulse"},
-//                null,
-//                null,
-//                null,
-//                null,
-//                null
-//        );
-//        cursor.moveToFirst();
-//        StringBuilder sb = new StringBuilder();
-//        for(int i=0; i<cursor.getCount(); i++){
-//            sb.append(cursor.getInt(0));
-//            sb.append(cursor.getInt(1));
-//            sb.append("mmHg");
-//            sb.append(cursor.getInt(2));
-//            sb.append("mmHg");
-//            sb.append(cursor.getInt(3));
-//            cursor.moveToNext();
-//        }
-//        cursor.close();
-//        textView = findViewById(R.id.text_view);
-//        textView.setText(sb.toString());
-//    }
+
 
 
 
