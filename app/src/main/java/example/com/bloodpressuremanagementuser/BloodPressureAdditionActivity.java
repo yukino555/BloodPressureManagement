@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -65,8 +66,10 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
             public void onClick(View view) {
                 getMaxBP = findViewById(R.id.etUpperBloodPressure);
                 final int maxBP = Integer.parseInt(getMaxBP.getText().toString());
+
                 getMinBP = findViewById(R.id.etLowerBloodPressure);
                 final int minBP = Integer.parseInt(getMinBP.getText().toString());
+
                 getPulse = findViewById(R.id.etPulse);
                 final int pulseInt = Integer.parseInt(getPulse.getText().toString());
 
