@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -64,28 +63,40 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
         btEntry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // R値と結び、int型に直してからテキストにしている。
                 getMaxBP = findViewById(R.id.etUpperBloodPressure);
-                final int maxBP = Integer.parseInt(getMaxBP.getText().toString());
+                String maxBP = (getMaxBP.getText().toString());
 
                 getMinBP = findViewById(R.id.etLowerBloodPressure);
-                final int minBP = Integer.parseInt(getMinBP.getText().toString());
+                String minBP = (getMinBP.getText().toString());
 
                 getPulse = findViewById(R.id.etPulse);
-                final int pulseInt = Integer.parseInt(getPulse.getText().toString());
+                String pulse = (getPulse.getText().toString());
 
+                String nullMsg = "値を入力してください";
+                if(maxBP.length()==0 || Integer.parseInt(maxBP)<1){
+                    getMaxBP.setError(nullMsg);
+                    return;
+                } else if(minBP.length()==0 || Integer.parseInt(minBP)<1){
+                    getMinBP.setError(nullMsg);
+                    return;
+                } else if(pulse.length()==0 || Integer.parseInt(pulse)<1){
+                    getPulse.setError(nullMsg);
+                    return;
+                }
                 String errorMsg = "この値は入力できません";
-                if(!(80 <= maxBP && maxBP <= 180)){
+                if(!(80 <= Integer.parseInt(maxBP) && Integer.parseInt(maxBP) <= 180)){
                     getMaxBP.setError(errorMsg);
                     return;
-                } else if(!(50 <= minBP && minBP <= 140)){
+                } else if(!(50 <= Integer.parseInt(minBP) && Integer.parseInt(minBP) <= 140)){
                     getMinBP.setError(errorMsg);
                     return;
-                } else if(!(40 <= pulseInt && pulseInt <= 120)){
+                } else if(!(40 <= Integer.parseInt(pulse) && Integer.parseInt(pulse) <= 120)){
                     getPulse.setError(errorMsg);
                     return;
                 }
                 // データベースに値を登録するメソッド
-                insertData(db, maxBP, minBP, pulseInt);
+                insertData(db, maxBP, minBP, pulse);
                 // 登録に成功したらトーストがでる
                 Toast toast = Toast.makeText(BloodPressureAdditionActivity.this, "登録しました", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER, 0, 0);
@@ -107,22 +118,22 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
         });
     }
 
-    public void insertData(SQLiteDatabase db, int maxBP, int minBP, int pulse) {
+    public void insertData(SQLiteDatabase db, String maxBP, String minBP, String pulse){
         ContentValues values = new ContentValues();
-        try {
+        try (SQLiteDatabase d = helper.getWritableDatabase()){
             values.put("_date", getNowDate());
             values.put("_maxBP", maxBP);
             values.put("_minBP", minBP);
             values.put("_pulse", pulse);
-            db.insert("_BPtable", null, values);
-        } finally {
-            db.close();
+            d.insert("_BPtable", null, values);
         }
+        /*
+         dbをクローズしたものを再度開けようとしたから
+         「java.lang.illegalStateException attempt to re-open an already-closed object」
+         というエラーが出ていた。　 を用いて解決
+         */
+//        finally {
+//            db.close();
+//        }
     }
 }
-
-
-
-
-
-
