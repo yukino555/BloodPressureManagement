@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/reset"
+        app:showAsAction="ifRoom"
+        android:title="@string/menu_reset"/>
+</menu>
+<!--never その選択肢はオーバーフローメニューに格納される-->
+<!--always 常にアクションバーに表示される。ifRoomが推奨される-->
+<!--ifRoom アクションバーに余裕がある時は表示し、なければオーバーフローメニューに格納する-->

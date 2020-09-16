@@ -48,4 +48,5 @@
     <string name="example1">80~180まで</string>
     <string name="example2">50~140まで</string>
     <string name="example3">40~120まで</string>
+    <string name="menu_reset">リセット</string>
 </resources>

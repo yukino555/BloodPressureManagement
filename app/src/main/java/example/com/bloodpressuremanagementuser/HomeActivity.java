@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -140,5 +142,14 @@ public class HomeActivity extends AppCompatActivity {
     public void onGraph(View view) {
         Intent intent = new Intent(HomeActivity.this, GraphActivity.class);
         startActivity(intent);
+    }
+    // Activityにオーバーフローメニューを出現させるメソッド
+    public boolean onCreateOptionsMenu(Menu menu){
+        // メニューインフレーターの取得
+        MenuInflater inflater = getMenuInflater();
+        // オプションメニュー用.xml ファイルをインフレート
+        inflater.inflate(R.menu.menu_options, menu);
+        // 親クラスの同名メソッドを呼び出し。その戻り値を返却
+        return super.onCreateOptionsMenu(menu);
     }
 }
