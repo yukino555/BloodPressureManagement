@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -87,17 +88,17 @@ public class HomeActivity extends AppCompatActivity {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < cursor.getCount(); i++) {
             addMaxBP += cursor.getInt(0);
+            sb.append("最高血圧 : ");
+            sb.append(addMaxBP/number + "\n");
             addMinBP += cursor.getInt(1);
+            sb.append("最低血圧 : ");
+            sb.append(addMinBP/number + "\n");
             addPulse += cursor.getInt(2);
+            sb.append("脈拍 : ");
+            sb.append(addPulse/number + "\n");
             cursor.moveToNext();
         }
         cursor.close();
-        sb.append("最高血圧 : ");
-        sb.append(addMaxBP/number + "\n");
-        sb.append("最低血圧 : ");
-        sb.append(addMinBP/number + "\n");
-        sb.append("脈拍 : ");
-        sb.append(addPulse/number + "\n");
         textView2 = findViewById(R.id.text_view2);
         textView2.setText(sb.toString());
     }
@@ -120,18 +121,17 @@ public class HomeActivity extends AppCompatActivity {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < cursor.getCount(); i++) {  // 列(column)が次に移る
             maxUpperBP = Math.max(maxUpperBP, cursor.getInt(0));
+            sb.append("最高血圧 : ");
+            sb.append(maxUpperBP + "\n");
             maxLowerBP = Math.max(maxLowerBP, cursor.getInt(1));
+            sb.append("最低血圧 : ");
+            sb.append(maxLowerBP + "\n");
             maxPulse = Math.max(maxPulse, cursor.getInt(2));
+            sb.append("脈拍 : ");
+            sb.append(maxPulse + "\n");
             cursor.moveToNext();  // 行(row)が次に移る
         }
-        cursor.close();
-        sb.append("最高血圧 : ");
-        sb.append(maxUpperBP + "\n");
-        sb.append("最低血圧 : ");
-        sb.append(maxLowerBP + "\n");
-        sb.append("脈拍 : ");
-        sb.append(maxPulse + "\n");
-        textView3 = findViewById(R.id.text_view3);
+        cursor.close();textView3 = findViewById(R.id.text_view3);
         textView3.setText(sb.toString());
     }
 
@@ -143,7 +143,7 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent = new Intent(HomeActivity.this, GraphActivity.class);
         startActivity(intent);
     }
-    // Activityにオーバーフローメニューを出現させるメソッド
+    // Activityにオーバーフローメニューを出現させるメソッド（定型文）
     public boolean onCreateOptionsMenu(Menu menu){
         // メニューインフレーターの取得
         MenuInflater inflater = getMenuInflater();
@@ -151,5 +151,16 @@ public class HomeActivity extends AppCompatActivity {
         inflater.inflate(R.menu.menu_options, menu);
         // 親クラスの同名メソッドを呼び出し。その戻り値を返却
         return super.onCreateOptionsMenu(menu);
+    }
+    // オプションメニュー選択時処理メソッド
+    public boolean onOptionsItemSelected(MenuItem item){
+        int itemId = item.getItemId();
+        switch (itemId){
+            case R.id.menu_reset:  // リセットをタップしたらダイアログを出す
+                ResetDialogFragment dialogFragment = new ResetDialogFragment();
+                dialogFragment.show(getSupportFragmentManager(), "ResetDialogFragment");
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

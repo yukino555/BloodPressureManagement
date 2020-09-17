@@ -10,7 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".GraphActivity"></activity>
-        <activity android:name=".BloodPressureActivity$GraphActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".UserFinishActivity" />
         <activity android:name=".BloodPressureActivity" />

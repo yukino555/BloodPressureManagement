@@ -12,14 +12,14 @@ public class BloodPressureActivity extends AppCompatActivity {
 //        Log.i("BloodPressureManegementUser","Main onCreate() called.");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blood_pressure);
-        Button button = findViewById(R.id.btEntry);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                EntryUserInformationDialogFragment dialogFragment = new EntryUserInformationDialogFragment();
-                dialogFragment.show(getSupportFragmentManager(), "EntryUserInformationDialogFragment");
-            }
-        });
+//        Button button = findViewById(R.id.btEntry);
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                ResetDialogFragment dialogFragment = new ResetDialogFragment();
+//                dialogFragment.show(getSupportFragmentManager(), "ResetDialogFragment");
+//            }
+//        });
         // 登録ボタンを押したら画面遷移用の記述
 //        findViewById(R.id.btEntry).setOnClickListener(this);
     }

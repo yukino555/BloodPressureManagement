@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/reset"
-        app:showAsAction="ifRoom"
+        android:id="@+id/menu_reset"
+        app:showAsAction="never"
         android:title="@string/menu_reset"/>
 </menu>
 <!--never その選択肢はオーバーフローメニューに格納される-->

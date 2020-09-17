@@ -25,12 +25,12 @@
     <string name="tv_attention2">あとで設定から変更ができます</string>
     <string name="bt_entry">登録</string>
     <string name="dialog_title">登録確認</string>
-    <string name="dialog_msg">入力した内容で登録します。よろしいですか。</string>
-    <string name="dialog_btn_ok">確定</string>
-    <string name="dialog_btn_ng">キャンセル</string>
+    <string name="dialog_msg">今までのデータを削除します。よろしいですか。</string>
+    <string name="dialog_btn_ok">yes</string>
+    <string name="dialog_btn_ng">no</string>
     <string name="tv_userFinish">登録が完了しました</string>
     <string name="bt_next">次へ</string>
-    <string name="dialog_ok_toast">確定</string>
+    <string name="dialog_ok_toast">削除しました</string>
     <string name="dialog_ng_toast">キャンセル</string>
     <string name="tv_countingTime">測定時間</string>
     <string name="bt_time">現在時刻</string>
