@@ -118,24 +118,23 @@ public class HomeActivity extends AppCompatActivity {
                 null
         );
         cursor.moveToFirst();
+        int aa = 0;
+        int bb = 0;
+        int cc = 0;
         int maxUpperBP = Integer.MIN_VALUE;
         int maxLowerBP = Integer.MIN_VALUE;
         int maxPulse = Integer.MIN_VALUE;
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < cursor.getCount(); i++) {  // 列(column)が次に移る
-            maxUpperBP = Math.max(maxUpperBP, cursor.getInt(0));
-            sb.append("最高血圧 : ");
-            sb.append(maxUpperBP + "\n");
-            maxLowerBP = Math.max(maxLowerBP, cursor.getInt(1));
-            sb.append("最低血圧 : ");
-            sb.append(maxLowerBP + "\n");
-            maxPulse = Math.max(maxPulse, cursor.getInt(2));
-            sb.append("脈拍 : ");
-            sb.append(maxPulse + "\n");
+            aa = Math.max(maxUpperBP, cursor.getInt(0));
+            bb = Math.max(maxLowerBP, cursor.getInt(1));
+            cc = Math.max(maxPulse, cursor.getInt(2));
             cursor.moveToNext();  // 行(row)が次に移る
         }
         cursor.close();
-
+        sb.append("最高血圧 : " + aa + "\n");
+        sb.append("最低血圧 : " + bb + "\n");
+        sb.append("脈拍 : " + cc + "\n");
         textView3 = findViewById(R.id.text_view3);
         textView3.setText(sb.toString());
     }
