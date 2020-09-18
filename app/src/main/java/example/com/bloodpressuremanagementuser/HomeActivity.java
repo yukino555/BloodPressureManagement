@@ -86,19 +86,22 @@ public class HomeActivity extends AppCompatActivity {
         int number = cursor.getCount();
         cursor.moveToFirst();
         StringBuilder sb = new StringBuilder();
+        int a = 0;
+        int b = 0;
+        int c = 0;
         for (int i = 0; i < cursor.getCount(); i++) {
             addMaxBP += cursor.getInt(0);
-            sb.append("最高血圧 : ");
-            sb.append(addMaxBP/number + "\n");
+            a = (addMaxBP/number);
             addMinBP += cursor.getInt(1);
-            sb.append("最低血圧 : ");
-            sb.append(addMinBP/number + "\n");
+            b = (addMinBP/number);
             addPulse += cursor.getInt(2);
-            sb.append("脈拍 : ");
-            sb.append(addPulse/number + "\n");
+            c = (addPulse/number);
             cursor.moveToNext();
         }
         cursor.close();
+        sb.append("最高血圧 : " + a + "\n");
+        sb.append("最低血圧 : " + b + "\n");
+        sb.append("脈拍 : " + c + "\n");
         textView2 = findViewById(R.id.text_view2);
         textView2.setText(sb.toString());
     }
@@ -131,7 +134,9 @@ public class HomeActivity extends AppCompatActivity {
             sb.append(maxPulse + "\n");
             cursor.moveToNext();  // 行(row)が次に移る
         }
-        cursor.close();textView3 = findViewById(R.id.text_view3);
+        cursor.close();
+
+        textView3 = findViewById(R.id.text_view3);
         textView3.setText(sb.toString());
     }
 
