@@ -118,23 +118,21 @@ public class HomeActivity extends AppCompatActivity {
                 null
         );
         cursor.moveToFirst();
-        int aa = 0;
-        int bb = 0;
-        int cc = 0;
-        int maxUpperBP = Integer.MIN_VALUE;
-        int maxLowerBP = Integer.MIN_VALUE;
-        int maxPulse = Integer.MIN_VALUE;
+        // = Integer.MIN_VALUE にしてたが、比較対象は正の整数なので0に変更
+        int maxUpperBP = 0;
+        int maxLowerBP = 0;
+        int maxPulse = 0;
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < cursor.getCount(); i++) {  // 列(column)が次に移る
-            aa = Math.max(maxUpperBP, cursor.getInt(0));
-            bb = Math.max(maxLowerBP, cursor.getInt(1));
-            cc = Math.max(maxPulse, cursor.getInt(2));
+            maxUpperBP = Math.max(maxUpperBP, cursor.getInt(0));
+            maxLowerBP = Math.max(maxLowerBP, cursor.getInt(1));
+            maxPulse = Math.max(maxPulse, cursor.getInt(2));
             cursor.moveToNext();  // 行(row)が次に移る
         }
         cursor.close();
-        sb.append("最高血圧 : " + aa + "\n");
-        sb.append("最低血圧 : " + bb + "\n");
-        sb.append("脈拍 : " + cc + "\n");
+        sb.append("最高血圧 : " + maxUpperBP + "\n");
+        sb.append("最低血圧 : " + maxLowerBP + "\n");
+        sb.append("脈拍 : " + maxPulse + "\n");
         textView3 = findViewById(R.id.text_view3);
         textView3.setText(sb.toString());
     }
