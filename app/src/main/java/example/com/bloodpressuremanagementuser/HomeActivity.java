@@ -86,22 +86,22 @@ public class HomeActivity extends AppCompatActivity {
         int number = cursor.getCount();
         cursor.moveToFirst();
         StringBuilder sb = new StringBuilder();
-        int a = 0;
-        int b = 0;
-        int c = 0;
+        int avgMaxBP = 0;
+        int avgMinBP = 0;
+        int avgPulse = 0;
         for (int i = 0; i < cursor.getCount(); i++) {
             addMaxBP += cursor.getInt(0);
-            a = (addMaxBP/number);
+            avgMaxBP = (addMaxBP/number);
             addMinBP += cursor.getInt(1);
-            b = (addMinBP/number);
+            avgMinBP = (addMinBP/number);
             addPulse += cursor.getInt(2);
-            c = (addPulse/number);
+            avgPulse = (addPulse/number);
             cursor.moveToNext();
         }
         cursor.close();
-        sb.append("最高血圧 : " + a + "\n");
-        sb.append("最低血圧 : " + b + "\n");
-        sb.append("脈拍 : " + c + "\n");
+        sb.append("最高血圧 : " + avgMaxBP + "\n");
+        sb.append("最低血圧 : " + avgMinBP + "\n");
+        sb.append("脈拍 : " + avgPulse + "\n");
         textView2 = findViewById(R.id.text_view2);
         textView2.setText(sb.toString());
     }
