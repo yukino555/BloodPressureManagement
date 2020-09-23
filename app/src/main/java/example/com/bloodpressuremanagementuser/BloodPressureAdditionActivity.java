@@ -2,9 +2,9 @@ package example.com.bloodpressuremanagementuser;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentActivity;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.text.DateFormat;
@@ -23,7 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class BloodPressureAdditionActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class BloodPressureAdditionActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     EditText getMaxBP;
     EditText getMinBP;
     EditText getPulse;
@@ -33,6 +34,8 @@ public class BloodPressureAdditionActivity extends AppCompatActivity implements 
     SQLiteDatabase db;
     TextView textDate;
     TextView textTime;
+    String getDate;
+    String getTime;
 
     public static String getNowDate() {
         final DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm");
@@ -136,7 +139,8 @@ public class BloodPressureAdditionActivity extends AppCompatActivity implements 
     public void insertData(SQLiteDatabase db, String maxBP, String minBP, String pulse){
         ContentValues values = new ContentValues();
         try (SQLiteDatabase d = helper.getWritableDatabase()){
-            values.put("_date", getNowDate());
+            values.put("_date", getDate);
+//            values.put("_time", getTime);
             values.put("_maxBP", maxBP);
             values.put("_minBP", minBP);
             values.put("_pulse", pulse);
@@ -151,20 +155,26 @@ public class BloodPressureAdditionActivity extends AppCompatActivity implements 
 //            db.close();
 //        }
     }
+    // 日付取得ダイアログ
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        String str = String.format(Locale.JAPAN, "%d/%d/%d", year,
+        getDate = String.format(Locale.JAPAN, "%d/%d/%d", year,
                                     month+1, dayOfMonth);
-        textDate.setText(str);
+        textDate.setText(getDate);
     }
     public void showDatePickerDialog(View view) {
         DialogFragment newFragment = new DatePick();
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
-    public void showTimePickerDialog(View view) {
-
+    // 時間取得ダイアログ
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        getTime = String.format(Locale.JAPAN, "%d:%d", hourOfDay, minute);
+        textTime.setText(getTime);
     }
-
-
+    public void showTimePickerDialog(View view) {
+        DialogFragment newFragment = new TimePick();
+        newFragment.show(getSupportFragmentManager(), "timePicker");
+    }
 }
