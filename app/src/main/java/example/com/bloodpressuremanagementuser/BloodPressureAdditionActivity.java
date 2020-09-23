@@ -136,4 +136,7 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
 //            db.close();
 //        }
     }
+
+    public void showDatePickerDialog(View view) {
+    }
 }

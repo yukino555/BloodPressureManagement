@@ -38,8 +38,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "DROP TABLE IF EXISTS " + TABLE_NAME;
 
     /*
-     SQLiteOpenHelperクラスを継承している。onCreate()とonUpgrade()の2つのオーバーライドがないとコンパエラー
-     onCreate()は一回しか実行しないので、コメントアウトしてもsaveData()の値が消えないよ( ﾉД`)
+     SQLiteOpenHelperクラスを継承している。onCreate()とonUpgrade()の2つのオーバーライドがないとコンパイルエラー
      */
     @Override
     public void onCreate(SQLiteDatabase db){

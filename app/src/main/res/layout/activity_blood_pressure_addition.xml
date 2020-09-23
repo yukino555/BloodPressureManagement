@@ -143,6 +143,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="@string/bt_entry"
+        android:onClick="showDatePickerDialog"
         app:layout_constraintEnd_toStartOf="@+id/btNext"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread"
@@ -160,12 +161,21 @@
         app:layout_constraintStart_toEndOf="@+id/btEntry"
         app:layout_constraintTop_toBottomOf="@+id/tvPulse" />
 
-    <TextView
+    <Button
         android:id="@+id/btTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bt_date"
+        android:textSize="20sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tvCountingTime"
+        app:layout_constraintStart_toStartOf="@+id/guideline2" />
+
+    <Button
+        android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/bt_time"
         android:textSize="20sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/tvCountingTime"
-        app:layout_constraintStart_toStartOf="@+id/guideline2" />
+        app:layout_constraintStart_toEndOf="@+id/btTime" />
 </androidx.constraintlayout.widget.ConstraintLayout>
