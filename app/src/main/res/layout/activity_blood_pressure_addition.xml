@@ -7,11 +7,11 @@
     tools:context=".BloodPressureAdditionActivity">
 
     <ImageView
-        android:src="@drawable/a531894"
-        android:scaleType="fitXY"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.50"/>
+        android:alpha="0.50"
+        android:scaleType="fitXY"
+        android:src="@drawable/a531894" />
 
     <TextView
         android:id="@+id/tvCountingTime"
@@ -26,25 +26,25 @@
 
     <TextView
         android:id="@+id/tvUpperBloodPressure"
-        android:layout_width="0dp"
+        android:layout_width="97dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:text="@string/tv_upperBloodPressure"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCountingTime" />
+        app:layout_constraintTop_toBottomOf="@+id/textDate" />
 
     <EditText
         android:id="@+id/etUpperBloodPressure"
-        android:hint="@string/example1"
-        android:autofillHints="@string/example1"
-        android:maxLength="3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:autofillHints="@string/example1"
         android:ems="6"
+        android:hint="@string/example1"
         android:inputType="number"
+        android:maxLength="3"
         app:layout_constraintBaseline_toBaselineOf="@+id/tvUpperBloodPressure"
         app:layout_constraintStart_toEndOf="@+id/tvUpperBloodPressure" />
 
@@ -71,13 +71,13 @@
 
     <EditText
         android:id="@+id/etLowerBloodPressure"
-        android:hint="@string/example2"
-        android:autofillHints="@string/example2"
-        android:maxLength="3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:autofillHints="@string/example2"
         android:ems="6"
+        android:hint="@string/example2"
         android:inputType="number"
+        android:maxLength="3"
         app:layout_constraintBaseline_toBaselineOf="@+id/tvLowerBloodPressure"
         app:layout_constraintStart_toEndOf="@+id/tvLowerBloodPressure" />
 
@@ -118,13 +118,13 @@
 
     <EditText
         android:id="@+id/etPulse"
-        android:hint="@string/example3"
-        android:autofillHints="@string/example3"
-        android:maxLength="3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:autofillHints="@string/example3"
         android:ems="6"
+        android:hint="@string/example3"
         android:inputType="number"
+        android:maxLength="3"
         app:layout_constraintBaseline_toBaselineOf="@+id/tvPulse"
         app:layout_constraintStart_toEndOf="@+id/tvPulse" />
 
@@ -143,7 +143,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="@string/bt_entry"
-        android:onClick="showDatePickerDialog"
         app:layout_constraintEnd_toStartOf="@+id/btNext"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread"
@@ -162,20 +161,37 @@
         app:layout_constraintTop_toBottomOf="@+id/tvPulse" />
 
     <Button
-        android:id="@+id/btTime"
+        android:id="@+id/btDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="showDatePickerDialog"
         android:text="@string/bt_date"
-        android:textSize="20sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/tvCountingTime"
         app:layout_constraintStart_toStartOf="@+id/guideline2" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="showTimePickerDialog"
         android:text="@string/bt_time"
-        android:textSize="20sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/tvCountingTime"
-        app:layout_constraintStart_toEndOf="@+id/btTime" />
+        app:layout_constraintStart_toEndOf="@+id/btDate" />
+
+    <TextView
+        android:id="@+id/textDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/btDate" />
+
+    <TextView
+        android:id="@+id/textTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textDate"
+        app:layout_constraintStart_toEndOf="@+id/textDate" />
 </androidx.constraintlayout.widget.ConstraintLayout>

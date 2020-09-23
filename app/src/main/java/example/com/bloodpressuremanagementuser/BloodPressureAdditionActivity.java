@@ -1,7 +1,10 @@
 package example.com.bloodpressuremanagementuser;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentActivity;
 
+import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,6 +13,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,8 +21,9 @@ import android.widget.Toast;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
-public class BloodPressureAdditionActivity extends AppCompatActivity {
+public class BloodPressureAdditionActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     EditText getMaxBP;
     EditText getMinBP;
     EditText getPulse;
@@ -26,6 +31,8 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
     Button btNext;
     DatabaseHelper helper;
     SQLiteDatabase db;
+    TextView textDate;
+    TextView textTime;
 
     public static String getNowDate() {
         final DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm");
@@ -56,6 +63,14 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
         pulse.setTypeface(customFont);
         TextView pulseUnit = findViewById(R.id.tvPulseUnit);
         pulseUnit.setTypeface(customFont);
+        Button setDate = findViewById(R.id.btDate);
+        setDate.setTypeface(customFont);
+        Button setTime = findViewById(R.id.btTime);
+        setTime.setTypeface(customFont);
+        textDate = findViewById(R.id.textDate);
+        textDate.setTypeface(customFont);
+        textTime = findViewById(R.id.textTime);
+        textTime.setTypeface(customFont);
 
 
         btEntry = findViewById(R.id.btEntry);
@@ -136,7 +151,20 @@ public class BloodPressureAdditionActivity extends AppCompatActivity {
 //            db.close();
 //        }
     }
-
-    public void showDatePickerDialog(View view) {
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        String str = String.format(Locale.JAPAN, "%d/%d/%d", year,
+                                    month+1, dayOfMonth);
+        textDate.setText(str);
     }
+    public void showDatePickerDialog(View view) {
+        DialogFragment newFragment = new DatePick();
+        newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
+    public void showTimePickerDialog(View view) {
+
+    }
+
+
 }
