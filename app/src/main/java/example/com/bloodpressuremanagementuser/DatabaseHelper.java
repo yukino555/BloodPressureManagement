@@ -12,7 +12,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "Bloodpressure.db";
     private static final String _ID = "_id";
     private static final String TABLE_NAME = "_BPtable";
-    private static final String COLUMN_DATE = "_date";    // 日時
+    private static final String COLUMN_DATE = "_date";    // 日付
+    private static final String COLUMN_TIME = "_time";
     private static final String COLUMN_MAXBP = "_maxBP"; // 最高血圧
     private static final String COLUMN_MINBP = "_minBP"; // 最低血圧
     private static final String COLUMN_PULSE = "_pulse"; // 脈拍
@@ -30,6 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + TABLE_NAME + "(" +
                     _ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     COLUMN_DATE + " TEXT," +
+                    COLUMN_TIME + " TEXT," +
                     COLUMN_MAXBP + " INTEGER," +
                     COLUMN_MINBP + " INTEGER," +
                     COLUMN_PULSE + " INTEGER)";

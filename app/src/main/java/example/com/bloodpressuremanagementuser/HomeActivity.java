@@ -40,7 +40,7 @@ public class HomeActivity extends AppCompatActivity {
         db = helper.getReadableDatabase();
         cursor = db.query(
                 "_BPtable",
-                new String[]{"_date", "_maxBP", "_minBP", " _pulse"},
+                new String[]{"_date", "_time", "_maxBP", "_minBP", " _pulse"},
                 null,
                 null,
                 null,
@@ -52,11 +52,13 @@ public class HomeActivity extends AppCompatActivity {
         for (int i = 0; i < cursor.getCount(); i++) {
             sb.append(cursor.getString(0));
             sb.append(" ");
-            sb.append(cursor.getInt(1));
-            sb.append("mmHg");
+            sb.append(cursor.getString(1));
+            sb.append(" ");
             sb.append(cursor.getInt(2));
             sb.append("mmHg");
             sb.append(cursor.getInt(3));
+            sb.append("mmHg");
+            sb.append(cursor.getInt(4));
             sb.append("拍/分");
             sb.append("\n");
             cursor.moveToNext();

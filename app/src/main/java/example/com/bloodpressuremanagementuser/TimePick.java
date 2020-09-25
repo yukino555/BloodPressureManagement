@@ -15,7 +15,7 @@ public class TimePick extends DialogFragment implements TimePickerDialog.OnTimeS
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState){
         final Calendar c = Calendar.getInstance();
-        int hour = c.get(Calendar.HOUR);
+        int hour   = c.get(Calendar.HOUR);
         int minute = c.get(Calendar.MINUTE);
         return new TimePickerDialog(getActivity(),
                 (BloodPressureAdditionActivity)getActivity(), hour, minute, false);

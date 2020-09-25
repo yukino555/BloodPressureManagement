@@ -140,7 +140,7 @@ public class BloodPressureAdditionActivity extends AppCompatActivity implements 
         ContentValues values = new ContentValues();
         try (SQLiteDatabase d = helper.getWritableDatabase()){
             values.put("_date", getDate);
-//            values.put("_time", getTime);
+            values.put("_time", getTime);
             values.put("_maxBP", maxBP);
             values.put("_minBP", minBP);
             values.put("_pulse", pulse);

@@ -31,6 +31,7 @@ public class GraphActivity extends AppCompatActivity {
     ArrayList<Entry> valuesMaxBp;
     ArrayList<Entry> valuesMinBp;
     ArrayList<String> date;
+    ArrayList<String> time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class GraphActivity extends AppCompatActivity {
         db = helper.getReadableDatabase();
         cursor = db.query(
                 "_BPtable",
-                new String[]{"_date", "_maxBP", "_minBP"},
+                new String[]{"_date", "_time", "_maxBP", "_minBP"},
                 null,
                 null,
                 null,
@@ -53,10 +54,12 @@ public class GraphActivity extends AppCompatActivity {
         valuesMaxBp = new ArrayList<>();
         valuesMinBp = new ArrayList<>();
         date        = new ArrayList<>();
+        time        = new ArrayList<>();
         for (int i = 0; i < cursor.getCount(); i++) {
-            valuesMaxBp.add(new Entry(i, cursor.getInt(1)));
-            valuesMinBp.add(new Entry(i, cursor.getInt(2)));
+            valuesMaxBp.add(new Entry(i, cursor.getInt(2)));
+            valuesMinBp.add(new Entry(i, cursor.getInt(3)));
             date.add(cursor.getString(0));
+            time.add(cursor.getString(1));
             cursor.moveToNext();
         }
         cursor.close();
@@ -65,8 +68,7 @@ public class GraphActivity extends AppCompatActivity {
         initChart();
         // グラフに値をセットする
         setData();
-        // データをアニメーションで出す。ミリ秒.数値が大きいと遅い
-        mChart.animateX(1000);
+
 
         // dont forget to refresh the drawing
         // mChart.invalidate();
@@ -90,10 +92,9 @@ public class GraphActivity extends AppCompatActivity {
         XAxis xAxis = mChart.getXAxis();
         xAxis.setLabelRotationAngle(45);
         // ｘ軸最大値最小値
-        // 以下だと0~10番目が出力される(11個)
-        // 書かないと、登録したデータ分表示される
-//        xAxis.setAxisMinimum(0f);
-//        xAxis.setAxisMaximum(10f);
+        // 以下だと0~9番目が出力される(10個)書かないと、登録したデータ分表示される
+        xAxis.setAxisMinimum(0f);
+        xAxis.setAxisMaximum(9f);
         // データベースに登録した年月日時分秒をｘ軸に設定
         xAxis.setValueFormatter(new IndexAxisValueFormatter(getDate()));
 
@@ -114,27 +115,27 @@ public class GraphActivity extends AppCompatActivity {
         mChart.getAxisRight().setEnabled(false);
     }
 
+
     // String型で保存したデータをdate型に書き直して SimpleDateFormat して、、
     private  ArrayList<String> getDate() {
-        ArrayList<String> labels = new ArrayList<>();
-        for (int j = 0; j < date.size(); j++) {
+        ArrayList<String> dateLabels = new ArrayList<>();
+        for (int i = 0; i < date.size(); i++) {
             try {
-                String strDate = date.get(j);
-                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+                // 年月日を月日に修正
+                String strDate = date.get(i);
+                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
                 Date entryDate = dateFormat.parse(strDate);
-                DateFormat dt = new SimpleDateFormat("MM/dd HH:mm");
-                String str = dt.format(entryDate);
-                labels.add(str);
+                DateFormat dt = new SimpleDateFormat("MM/dd");
+                String setDate = dt.format(entryDate);
+                dateLabels.add(setDate);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
         }
-        return labels;
+        return dateLabels;
     }
 
     private void setData() {
-
-
         LineDataSet maxBpLine;   // 最高血圧
         LineDataSet minBpLine;   //　最低血圧
 
@@ -164,6 +165,8 @@ public class GraphActivity extends AppCompatActivity {
         dataSets.add(minBpLine);
         LineData lineData = new LineData(dataSets);
         mChart.setData(lineData);
+        // データをアニメーションで出す。ミリ秒.数値が大きいと遅い
+        mChart.animateX(1000);
     }
 
     public void onBack(View view) {
@@ -171,5 +174,19 @@ public class GraphActivity extends AppCompatActivity {
     }
 }
 
+//        ArrayList<String> timeLabels = new ArrayList<>();
+//        for (int j = 0; j < time.size(); j++){
+//            try {
+//                // 時分はそのまま
+//                String strTime = time.get(j);
+//                DateFormat timeFormat = new SimpleDateFormat("hh:mm");
+//                Date entryTime = timeFormat.parse(strTime);
+//                DateFormat dd = new SimpleDateFormat("hh:mm");
+//                String setTime = dd.format(entryTime);
+//                dateLabels.add((j+1), setTime);
+//            } catch (ParseException e){
+//                e.printStackTrace();
+//            }
+//        }
 
 
