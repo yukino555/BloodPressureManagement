@@ -142,11 +142,13 @@ public class BloodPressureAdditionActivity extends AppCompatActivity implements 
             values.put("_minBP", minBP);
             values.put("_pulse", pulse);
             data.insert("_BPtable", null, values);
+        } catch (Exception e){
+            e.printStackTrace();
         }
         /*
          dbをクローズしたものを再度開けようとしたから
          「java.lang.illegalStateException attempt to re-open an already-closed object」
-         というエラーが出ていた。　 を用いて解決
+         というエラーが出ていた。　 try-with-resourcesを用いて解決
          */
 //        finally {
 //            db.close();
