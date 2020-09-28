@@ -92,13 +92,13 @@ public class BloodPressureAdditionActivity extends AppCompatActivity implements 
                 String pulse = (getPulse.getText().toString());
 
                 String nullMsg = "値を入力してください";
-                if(maxBP.length()==0 || Integer.parseInt(maxBP)<1){
+                if(maxBP.length()==0){
                     getMaxBP.setError(nullMsg);
                     return;
-                } else if(minBP.length()==0 || Integer.parseInt(minBP)<1){
+                } else if(minBP.length()==0){
                     getMinBP.setError(nullMsg);
                     return;
-                } else if(pulse.length()==0 || Integer.parseInt(pulse)<1){
+                } else if(pulse.length()==0){
                     getPulse.setError(nullMsg);
                     return;
                 }
