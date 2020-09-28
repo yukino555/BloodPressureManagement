@@ -114,7 +114,7 @@ public class BloodPressureAdditionActivity extends AppCompatActivity implements 
                     return;
                 }
                 // データベースに値を登録するメソッド
-                insertData(db, maxBP, minBP, pulse);
+                insertData(maxBP, minBP, pulse);
                 // 登録に成功したらトーストがでる
                 Toast toast = Toast.makeText(BloodPressureAdditionActivity.this, "登録しました", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER, 0, 0);
@@ -136,7 +136,7 @@ public class BloodPressureAdditionActivity extends AppCompatActivity implements 
         });
     }
 
-    public void insertData(SQLiteDatabase db, String maxBP, String minBP, String pulse){
+    public void insertData(String maxBP, String minBP, String pulse){
         ContentValues values = new ContentValues();
         try (SQLiteDatabase d = helper.getWritableDatabase()){
             values.put("_date", getDate);
@@ -155,7 +155,7 @@ public class BloodPressureAdditionActivity extends AppCompatActivity implements 
 //            db.close();
 //        }
     }
-    // 日付取得ダイアログ
+    // 日付取得ダイアログ  null登録できるが、グラフで落ちる
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         getDate = String.format(Locale.JAPAN, "%d/%d/%d", year,
@@ -167,7 +167,7 @@ public class BloodPressureAdditionActivity extends AppCompatActivity implements 
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
-    // 時間取得ダイアログ
+    // 時間取得ダイアログ  null登録できるが、グラフで落ちる
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         getTime = String.format(Locale.JAPAN, "%d:%d", hourOfDay, minute);
