@@ -30,8 +30,6 @@ public class BloodPressureAdditionActivity extends AppCompatActivity implements 
     EditText getPulse;
     Button btEntry;
     Button btNext;
-    DatabaseHelper helper;
-    SQLiteDatabase db;
     TextView textDate;
     TextView textTime;
     String getDate;
@@ -47,8 +45,6 @@ public class BloodPressureAdditionActivity extends AppCompatActivity implements 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blood_pressure_addition);
-        helper = new DatabaseHelper(BloodPressureAdditionActivity.this);
-        db = helper.getWritableDatabase();
         // カスタムフォントの処理
         Typeface customFont = Typeface.createFromAsset(getAssets(), "Ronde-B_square.otf");
         TextView time = findViewById(R.id.tvCountingTime);
@@ -138,13 +134,14 @@ public class BloodPressureAdditionActivity extends AppCompatActivity implements 
 
     public void insertData(String maxBP, String minBP, String pulse){
         ContentValues values = new ContentValues();
-        try (SQLiteDatabase d = helper.getWritableDatabase()){
+        DatabaseHelper helper = new DatabaseHelper(BloodPressureAdditionActivity.this);
+        try (SQLiteDatabase data = helper.getWritableDatabase()){
             values.put("_date", getDate);
             values.put("_time", getTime);
             values.put("_maxBP", maxBP);
             values.put("_minBP", minBP);
             values.put("_pulse", pulse);
-            d.insert("_BPtable", null, values);
+            data.insert("_BPtable", null, values);
         }
         /*
          dbをクローズしたものを再度開けようとしたから
@@ -156,6 +153,7 @@ public class BloodPressureAdditionActivity extends AppCompatActivity implements 
 //        }
     }
     // 日付取得ダイアログ  null登録できるが、グラフで落ちる
+    // 過去の日付が現在より後ろでグラフになってしまう。。
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         getDate = String.format(Locale.JAPAN, "%d/%d/%d", year,
