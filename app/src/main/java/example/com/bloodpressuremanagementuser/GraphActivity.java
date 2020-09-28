@@ -56,10 +56,10 @@ public class GraphActivity extends AppCompatActivity {
         date        = new ArrayList<>();
         time        = new ArrayList<>();
         for (int i = 0; i < cursor.getCount(); i++) {
-            valuesMaxBp.add(new Entry(i, cursor.getInt(2)));
-            valuesMinBp.add(new Entry(i, cursor.getInt(3)));
             date.add(cursor.getString(0));
             time.add(cursor.getString(1));
+            valuesMaxBp.add(new Entry(i, cursor.getInt(2)));
+            valuesMinBp.add(new Entry(i, cursor.getInt(3)));
             cursor.moveToNext();
         }
         cursor.close();

@@ -13,10 +13,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String _ID = "_id";
     private static final String TABLE_NAME = "_BPtable";
     private static final String COLUMN_DATE = "_date";    // 日付
-    private static final String COLUMN_TIME = "_time";
-    private static final String COLUMN_MAXBP = "_maxBP"; // 最高血圧
-    private static final String COLUMN_MINBP = "_minBP"; // 最低血圧
-    private static final String COLUMN_PULSE = "_pulse"; // 脈拍
+    private static final String COLUMN_TIME = "_time";    // 時間
+    private static final String COLUMN_MAXBP = "_maxBP";  // 最高血圧
+    private static final String COLUMN_MINBP = "_minBP";  // 最低血圧
+    private static final String COLUMN_PULSE = "_pulse";  // 脈拍
 
     // コンストラクタ
     DatabaseHelper(Context context){
@@ -43,7 +43,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      SQLiteOpenHelperクラスを継承している。onCreate()とonUpgrade()の2つのオーバーライドがないとコンパイルエラー
      */
     @Override
-    public void onCreate(SQLiteDatabase db){
+    public void onCreate(SQLiteDatabase db){  // このメソッドがテーブルを作成してる
         db.execSQL(SQL_CREATE_ENTRIES); // 引数がテーブルだよ。上で作ってあるよ
     }
     @Override
