@@ -10,7 +10,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class HomeActivity extends AppCompatActivity {
@@ -64,6 +66,12 @@ public class HomeActivity extends AppCompatActivity {
             cursor.moveToNext();
         }
         cursor.close();
+//        ListView listView = new ListView(this);
+//        setContentView(listView);
+//        ArrayAdapter<StringBuilder> arrayAdapter =
+//                new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, sb);
+//        listView.setAdapter(arrayAdapter);
+
         textView = findViewById(R.id.text_view);
         textView.setText(sb.toString());
     }
