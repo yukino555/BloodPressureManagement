@@ -39,7 +39,6 @@ public class HomeActivity extends AppCompatActivity {
         btShow = findViewById(R.id.btShow);
         btAvg = findViewById(R.id.btAvg);
         btMaxValue = findViewById(R.id.btMaxValue);
-        btBack = findViewById(R.id.btBack);
     }
     public void onShow(View view) {
         db = helper.getReadableDatabase();

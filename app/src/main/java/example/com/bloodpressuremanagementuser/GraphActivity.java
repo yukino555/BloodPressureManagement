@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -168,9 +171,24 @@ public class GraphActivity extends AppCompatActivity {
         // データをアニメーションで出す。ミリ秒.数値が大きいと遅い
         mChart.animateX(1000);
     }
-
-    public void onBack(View view) {
-        finish();
+    // Activityにオーバーフローメニューを出現させるメソッド（定型文）
+    public boolean onCreateOptionsMenu(Menu menu){
+        // メニューインフレーターの取得
+        MenuInflater inflater = getMenuInflater();
+        // オプションメニュー用.xml ファイルをインフレート
+        inflater.inflate(R.menu.menu_options, menu);
+        // 親クラスの同名メソッドを呼び出し。その戻り値を返却
+        return super.onCreateOptionsMenu(menu);
+    }
+    // オプションメニュー選択時処理メソッド
+    public boolean onOptionsItemSelected(MenuItem item){
+        int itemId = item.getItemId();
+        switch (itemId){
+            case R.id.menu_return:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
 

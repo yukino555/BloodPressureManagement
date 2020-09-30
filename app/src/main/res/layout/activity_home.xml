@@ -28,7 +28,7 @@
     <ListView
         android:id="@+id/list_view"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="150dp"
         android:layout_weight="0.6"
         app:autoSizeTextType="uniform"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,7 +43,7 @@
         android:text="@string/bt_avg"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view" />
+        app:layout_constraintTop_toBottomOf="@+id/list_view" />
 
     <TextView
         android:id="@+id/text_view2"
@@ -73,7 +73,7 @@
         android:text="@string/bt_maxValue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline5"
-        app:layout_constraintTop_toBottomOf="@+id/text_view" />
+        app:layout_constraintTop_toBottomOf="@+id/list_view" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"
