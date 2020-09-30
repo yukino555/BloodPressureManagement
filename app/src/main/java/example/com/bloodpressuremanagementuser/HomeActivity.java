@@ -168,6 +168,9 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         int itemId = item.getItemId();
         switch (itemId){
+            case R.id.menu_return:
+                finish();
+                break;
             case R.id.menu_reset:  // リセットをタップしたらダイアログを出す
                 ResetDialogFragment dialogFragment = new ResetDialogFragment();
                 dialogFragment.show(getSupportFragmentManager(), "ResetDialogFragment");

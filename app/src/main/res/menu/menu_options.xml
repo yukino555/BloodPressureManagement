@@ -5,6 +5,10 @@
         android:id="@+id/menu_reset"
         app:showAsAction="never"
         android:title="@string/menu_reset"/>
+    <item
+        android:id="@+id/menu_return"
+        app:showAsAction="ifRoom"
+        android:title="@string/menu_return"/>
 </menu>
 <!--never その選択肢はオーバーフローメニューに格納される-->
 <!--always 常にアクションバーに表示される。ifRoomが推奨される-->
