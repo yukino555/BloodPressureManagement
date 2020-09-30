@@ -15,6 +15,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomeActivity extends AppCompatActivity {
     DatabaseHelper helper;
     SQLiteDatabase db;
@@ -51,6 +54,7 @@ public class HomeActivity extends AppCompatActivity {
         );
         cursor.moveToFirst();
         StringBuilder sb = new StringBuilder();
+        List<StringBuilder> aaa = new ArrayList<>();
         for (int i = 0; i < cursor.getCount(); i++) {
             sb.append(cursor.getString(0));
             sb.append(" ");
@@ -66,14 +70,15 @@ public class HomeActivity extends AppCompatActivity {
             cursor.moveToNext();
         }
         cursor.close();
-//        ListView listView = new ListView(this);
-//        setContentView(listView);
-//        ArrayAdapter<StringBuilder> arrayAdapter =
-//                new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, sb);
-//        listView.setAdapter(arrayAdapter);
 
-        textView = findViewById(R.id.text_view);
-        textView.setText(sb.toString());
+        ListView listView = new ListView(this);
+        setContentView(listView);
+        ArrayAdapter<StringBuilder> arrayAdapter =
+                new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, aaa);
+        listView.setAdapter(arrayAdapter);
+
+//        textView = findViewById(R.id.text_view);
+//        textView.setText(sb.toString());
     }
 /*
  データベースに登録したデータを呼び出し平均を出したい
