@@ -53,28 +53,23 @@ public class HomeActivity extends AppCompatActivity {
                 null
         );
         cursor.moveToFirst();
-        StringBuilder sb = new StringBuilder();
-        List<StringBuilder> aaa = new ArrayList<>();
+        // databaseの値をリストに格納
+        List<String> data = new ArrayList<>();
         for (int i = 0; i < cursor.getCount(); i++) {
-            sb.append(cursor.getString(0));
-            sb.append(" ");
-            sb.append(cursor.getString(1));
-            sb.append(" ");
-            sb.append(cursor.getInt(2));
-            sb.append("mmHg");
-            sb.append(cursor.getInt(3));
-            sb.append("mmHg");
-            sb.append(cursor.getInt(4));
-            sb.append("拍/分");
-            sb.append("\n");
+            data.add(i,
+                    cursor.getString(0) + " " +
+                            cursor.getString(1) + " " +
+                    cursor.getInt(2) + "mmHg" +
+                    cursor.getInt(3) + "mmHg" +
+                    cursor.getInt(4) + "拍/分");
             cursor.moveToNext();
         }
         cursor.close();
-
+        // リストをlistViewで出力
         ListView listView = new ListView(this);
         setContentView(listView);
-        ArrayAdapter<StringBuilder> arrayAdapter =
-                new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, aaa);
+        ArrayAdapter<String> arrayAdapter =
+                new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, data);
         listView.setAdapter(arrayAdapter);
 
 //        textView = findViewById(R.id.text_view);
